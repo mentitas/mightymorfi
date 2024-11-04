@@ -16,9 +16,13 @@ export default function UpdateRestaurantName({
     const { data, setData, patch, errors, processing, recentlySuccessful } =
         useForm({
             name:    user.restaurant,
-            Contact: "1234",
-            Address: "notLibertador 1234",
+            contact: "1234",
+            address: "notLibertador 1234",
             email:   user.email,
+            menu:    user.restaurant?.menu || "",
+            horarios: user.restaurant?.horarios || "",
+            telefono: user.restaurant?.telefono || "",
+            logo:    user.restaurant?.logo || "",
         });
 
     const submit = (e) => {
@@ -31,7 +35,7 @@ export default function UpdateRestaurantName({
         <section className={className}>
             <header>
                 <h2 className="text-lg font-medium text-gray-900">
-                    Profile Information
+                    Restaurant Info
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600">
@@ -42,7 +46,6 @@ export default function UpdateRestaurantName({
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div>
                     <InputLabel htmlFor="name" value="Name" />
-
                     <TextInput
                         id="name"
                         className="mt-1 block w-full"
@@ -52,83 +55,60 @@ export default function UpdateRestaurantName({
                         isFocused
                         autoComplete="name"
                     />
-
-                    <InputError className="mt-2" message={errors.name} />
-
-                </div>
-
-                    <div>
-                    <InputLabel htmlFor="contact" value="Contact" />
-
-                    <TextInput
-                        id="contact"
-                        className="mt-1 block w-full"
-                        value={data.contact}
-                        onChange={(e) => setData('name', e.target.value)}
-                        required
-                        isFocused
-                        autoComplete="name"
-                    />
-
                     <InputError className="mt-2" message={errors.name} />
                 </div>
-
 
                 <div>
-                    <InputLabel htmlFor="address" value="Address" />
-
+                    <InputLabel htmlFor="menu" value="Menu URL" />
                     <TextInput
-                        id="address"
+                        id="menu"
                         className="mt-1 block w-full"
-                        value={data.address}
-                        onChange={(e) => setData('name', e.target.value)}
+                        value={data.menu}
+                        onChange={(e) => setData('menu', e.target.value)}
                         required
-                        isFocused
-                        autoComplete="name"
+                        autoComplete="menu"
                     />
-
-                    <InputError className="mt-2" message={errors.name} />
+                    <InputError className="mt-2" message={errors.menu} />
                 </div>
-
 
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
-
+                    <InputLabel htmlFor="horarios" value="Horarios" />
                     <TextInput
-                        id="email"
-                        type="email"
+                        id="horarios"
                         className="mt-1 block w-full"
-                        value={data.email}
-                        onChange={(e) => setData('email', e.target.value)}
+                        value={data.horarios}
+                        onChange={(e) => setData('horarios', e.target.value)}
                         required
-                        autoComplete="username"
+                        autoComplete="horarios"
                     />
-
-                    <InputError className="mt-2" message={errors.email} />
+                    <InputError className="mt-2" message={errors.horarios} />
                 </div>
 
-                {mustVerifyEmail && user.email_verified_at === null && (
-                    <div>
-                        <p className="mt-2 text-sm text-gray-800">
-                            Your email address is unverified.
-                            <Link
-                                href={route('verification.send')}
-                                method="post"
-                                as="button"
-                                className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                            >
-                                Click here to re-send the verification email.
-                            </Link>
-                        </p>
+                <div>
+                    <InputLabel htmlFor="telefono" value="Teléfono" />
+                    <TextInput
+                        id="telefono"
+                        className="mt-1 block w-full"
+                        value={data.telefono}
+                        onChange={(e) => setData('telefono', e.target.value)}
+                        required
+                        autoComplete="telefono"
+                    />
+                    <InputError className="mt-2" message={errors.telefono} />
+                </div>
 
-                        {status === 'verification-link-sent' && (
-                            <div className="mt-2 text-sm font-medium text-green-600">
-                                A new verification link has been sent to your
-                                email address.
-                            </div>
-                        )}
-                    </div>
-                )}
+                <div>
+                    <InputLabel htmlFor="logo" value="Logo URL" />
+                    <TextInput
+                        id="logo"
+                        className="mt-1 block w-full"
+                        value={data.logo}
+                        onChange={(e) => setData('logo', e.target.value)}
+                        required
+                        autoComplete="logo"
+                    />
+                    <InputError className="mt-2" message={errors.logo} />
+                </div>
 
                 <div className="flex items-center gap-4">
                     <PrimaryButton disabled={processing}>Save</PrimaryButton>

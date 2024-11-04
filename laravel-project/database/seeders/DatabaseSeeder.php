@@ -28,12 +28,13 @@ class DatabaseSeeder extends Seeder
         ]);
         Restaurant::truncate();
         Restaurant::factory()->create([
-            'name' => 'Dummy Restaurant',
-            'address' => '123 Dummy St, Test City',
-            'contact' => '123-456-7890',
+            'name' => 'Test Restaurant',
+            'address' => '123 Main Street',
             'owner_id' => $user->id,
-            'created_at' => now(),
-            'updated_at' => now(),
+            'menu' => 'https://example.com/menu',
+            'horarios' => '9am - 9pm',
+            'telefono' => '1234567890',
+            'logo' => 'https://example.com/logo.png',
         ]);
     }
 }
