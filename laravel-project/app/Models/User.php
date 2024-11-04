@@ -20,8 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password',
-        'restaurant'
+        'password'
     ];
 
     /**
@@ -45,5 +44,13 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * acceder a los restaurantes de un usuario desde el modelo User
+     */
+    public function restaurants()
+    {
+        return $this->hasMany(Restaurant::class, 'owner_id');
     }
 }

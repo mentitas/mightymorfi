@@ -60,4 +60,17 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+    /**
+     * Crea la variable hasRestaurant
+     */
+
+     public function index(Request $request)
+     {
+         // Chequeo si el usuario tiene restaurantes asociados
+         $hasRestaurant = $request->user()->restaurants()->exists();
+ 
+         return Inertia::render('Dashboard', [
+             'hasRestaurant' => $hasRestaurant,
+         ]);
+     }
 }

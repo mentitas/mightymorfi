@@ -16,17 +16,22 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         User::truncate();
+        $user = User::factory()->create([
+            'name' => 'TestUser1',
+            'email' => 'test1@example.com',
+            'password' => 'test1234'
+        ]);
         User::factory()->create([
-            'name' => 'Test User222',
-            'email' => 'test@example222.com',
-            'password' => 'test1234',
-            'restaurant' => 'Dummy Restaurant'
+            'name' => 'TestUser2',
+            'email' => 'test2@example.com',
+            'password' => 'test1234'
         ]);
         Restaurant::truncate();
         Restaurant::factory()->create([
             'name' => 'Dummy Restaurant',
             'address' => '123 Dummy St, Test City',
             'contact' => '123-456-7890',
+            'owner_id' => $user->id,
             'created_at' => now(),
             'updated_at' => now(),
         ]);

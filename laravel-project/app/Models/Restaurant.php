@@ -21,10 +21,16 @@ class restaurant extends Model
 
     protected $fillable = [
         'name',
+        'owner',
         'contact',
         'open-hours',
         'address',
         'menu',
         'tables',
     ];
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'owner_id');
+    }
 }
