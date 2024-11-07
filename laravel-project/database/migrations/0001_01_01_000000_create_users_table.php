@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('restaurant'); // Todo: que linkee a un restaurant de la tabla 'restaurant'
+            $table->string('restaurant')->nullable(); // Todo: que linkee a un restaurant de la tabla 'restaurant'
             $table->rememberToken();
             $table->timestamps();
         });
