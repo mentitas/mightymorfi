@@ -27,8 +27,6 @@ class restaurant extends Model
         'address',
         'menu',
         'tables',
-        'latitude',
-        'longitude'
     ];
 
     public function owner()
