@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Restaurant;
+use App\Models\Order;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -27,7 +28,7 @@ class DatabaseSeeder extends Seeder
             'password' => 'test1234'
         ]);
         Restaurant::truncate();
-        Restaurant::factory()->create([
+        $restaurant = Restaurant::factory()->create([
             'name' => 'Test Restaurant',
             'address' => '123 Main Street',
             'owner_id' => $user->id,
@@ -35,6 +36,12 @@ class DatabaseSeeder extends Seeder
             'horarios' => '9am - 9pm',
             'telefono' => '1234567890',
             'logo' => 'https://example.com/logo.png',
+        ]);
+        Order::factory()->create([
+        'restaurant' => $restaurant->id,
+        'table' => '4',
+        'content' => 'Un café con leche y un rol de canela',
+        'status' => 'Esperando',
         ]);
     }
 }

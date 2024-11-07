@@ -1,0 +1,6 @@
+Dependencias para el mapa
+
+npm require leaflet
+npm install react-leaflet
+
+

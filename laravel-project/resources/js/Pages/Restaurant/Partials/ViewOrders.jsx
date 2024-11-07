@@ -15,9 +15,9 @@ export default function ViewOrders({
                 <div>
                     {orders.map((order, index) => (
                         <div key={index} className="order-item p-4 mb-4 border rounded-lg">
-                            <h2>{order}</h2>
-                            <p>{order}</p>
-                            <PrimaryButton>Deliver</PrimaryButton>
+                            <h2>Comanda en mesa {order}</h2>
+                            <p>Descripción de la comanda en mesa {order}</p>
+                            <PrimaryButton>Entregar</PrimaryButton>
                         </div>
                     ))}
                 </div>
