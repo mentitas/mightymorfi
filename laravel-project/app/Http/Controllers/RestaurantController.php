@@ -3,9 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Restaurant; 
 
 class RestaurantController extends Controller
 {
+
+    public function locations()
+    {
+        $restaurants = Restaurant::select('name', 'latitude', 'longitude')->get();
+        return response()->json($restaurants);
+    }
+
     /**
      * Display the restaurants's profile form.
      */

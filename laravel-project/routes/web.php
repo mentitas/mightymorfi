@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,8 @@ Route::get('/', function () {
 Route::get('/map', function () {
     return Inertia::render('Map');
 });
+
+Route::get('/api/restaurants/locations', [RestaurantController::class, 'locations']);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
