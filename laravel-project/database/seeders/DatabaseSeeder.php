@@ -36,6 +36,8 @@ class DatabaseSeeder extends Seeder
             'horarios' => '9am - 9pm',
             'telefono' => '1234567890',
             'logo' => 'https://example.com/logo.png',
+            'latitude' => '-34.542138752398856',
+            'longitude' => '-58.44274203966781'
         ]);
         Order::factory()->create([
         'restaurant' => $restaurant->id,
