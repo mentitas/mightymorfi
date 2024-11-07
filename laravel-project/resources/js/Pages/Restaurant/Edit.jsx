@@ -4,13 +4,7 @@ import UpdateRestaurantNameForm from './Partials/UpdateRestaurantNameForm.jsx';
 
 export default function Edit({ mustVerifyEmail, status }) {
     return (
-        <AuthenticatedLayout
-            header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Restaurant Management
-                </h2>
-            }
-        >
+        <>        
             <Head title="Restaurant Management" />
 
             <div className="py-12">
@@ -24,6 +18,6 @@ export default function Edit({ mustVerifyEmail, status }) {
                     </div>
                 </div>
             </div>
-        </AuthenticatedLayout>
+        </>
     );
 }

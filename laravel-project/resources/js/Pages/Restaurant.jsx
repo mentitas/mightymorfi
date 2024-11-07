@@ -1,6 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import Edit from './Restaurant/Edit.jsx';
+import ViewOrders from './Restaurant/Partials/ViewOrders.jsx';
 
 export default function Restaurant() {
     return (
@@ -18,6 +19,7 @@ export default function Restaurant() {
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
                             Estamos viendo la info de tu restaurant!
+                            <ViewOrders />
                             <Edit />
                         </div>
                     </div>
