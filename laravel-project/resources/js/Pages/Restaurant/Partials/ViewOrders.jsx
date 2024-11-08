@@ -6,11 +6,24 @@ export default function ViewOrders({
     mustVerifyEmail,
     status,
     className = '',
+    restaurant,
     orders = ["uno", "dos", "tres"]
 }) {
 
     return (
+
         <section>
+            
+            <header>
+                <h2 className="text-lg font-medium text-gray-900">
+                    Comandas de {restaurant.name}
+                </h2>
+
+                <p className="mt-1 text-sm text-gray-600">
+                    Administrá las comandas de tu restaurant.
+                </p>
+            </header>
+
             {orders.length > 0 ? (
                 <div>
                     {orders.map((order, index) => (

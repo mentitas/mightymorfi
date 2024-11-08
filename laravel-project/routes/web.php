@@ -27,8 +27,17 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/restaurant', function () {
-    return Inertia::render('Restaurant');
+    $user = auth()->user();
+    
+    $restaurants = $user->restaurants()->get()->toArray();
+    $hasRestaurant = $user->restaurants()->exists();
+    
+    return Inertia::render('Restaurant', [
+        'restaurants' => $restaurants,
+        'hasRestaurant' => $hasRestaurant,
+    ]);
 })->middleware(['auth', 'verified'])->name('restaurant');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

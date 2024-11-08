@@ -5,47 +5,38 @@ import TextInput from '@/Components/TextInput';
 import { Transition } from '@headlessui/react';
 import { Link, useForm, usePage } from '@inertiajs/react';
 
-export default function UpdateRestaurantName({
-    mustVerifyEmail,
-    status,
-    className = '',
-}) {
-    const user = usePage().props.auth.user;
+export default function UpdateRestaurantName({ restaurant }) {
 
-    // Nombres que carga por default
     const { data, setData, patch, errors, processing, recentlySuccessful } =
         useForm({
-            name:    user.restaurant,
-            contact: "1234",
-            address: "notLibertador 1234",
-            email:   user.email,
-            menu:    user.restaurant?.menu || "",
-            horarios: user.restaurant?.horarios || "",
-            telefono: user.restaurant?.telefono || "",
-            logo:    user.restaurant?.logo || "",
+            name:      restaurant.name,
+            contact:   restaurant.contact,
+            address:   restaurant.address,
+            menu:      restaurant.menu,
+            timetable: restaurant.horarios,
+            logo:      restaurant.logo,
         });
 
     const submit = (e) => {
         e.preventDefault();
-
-        patch(route('profile.update'));
+        patch(route('restaurant.update'));
     };
 
     return (
-        <section className={className}>
+        <section className="max-w-xl">
             <header>
                 <h2 className="text-lg font-medium text-gray-900">
-                    Restaurant Info
+                    Editar {restaurant.name}
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    Update your restaurant's information.
+                    Actualizá la información de tu restaurant.
                 </p>
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                    <InputLabel value="Nombre" />
                     <TextInput
                         id="name"
                         className="mt-1 block w-full"
@@ -59,7 +50,7 @@ export default function UpdateRestaurantName({
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="menu" value="Menu URL" />
+                    <InputLabel value="Menu URL" />
                     <TextInput
                         id="menu"
                         className="mt-1 block w-full"
@@ -72,12 +63,12 @@ export default function UpdateRestaurantName({
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="horarios" value="Horarios" />
+                    <InputLabel value="Horarios" />
                     <TextInput
                         id="horarios"
                         className="mt-1 block w-full"
-                        value={data.horarios}
-                        onChange={(e) => setData('horarios', e.target.value)}
+                        value={data.timetable}
+                        onChange={(e) => setData('timetable', e.target.value)}
                         required
                         autoComplete="horarios"
                     />
@@ -85,12 +76,12 @@ export default function UpdateRestaurantName({
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="telefono" value="Teléfono" />
+                    <InputLabel value="Teléfono" />
                     <TextInput
                         id="telefono"
                         className="mt-1 block w-full"
-                        value={data.telefono}
-                        onChange={(e) => setData('telefono', e.target.value)}
+                        value={data.contact}
+                        onChange={(e) => setData('contact', e.target.value)}
                         required
                         autoComplete="telefono"
                     />
@@ -98,7 +89,7 @@ export default function UpdateRestaurantName({
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="logo" value="Logo URL" />
+                    <InputLabel value="Logo URL" />
                     <TextInput
                         id="logo"
                         className="mt-1 block w-full"
