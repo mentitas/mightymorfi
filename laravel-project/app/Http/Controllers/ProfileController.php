@@ -74,14 +74,4 @@ class ProfileController extends Controller
     //         'hasRestaurant' => $hasRestaurant,
     //     ]);
     // }
-
-
-    /**
-     *  Devuelve los restaurants de un usuario
-     */
-    public function getRestaurants($userId)
-    {
-        $user = User::findOrFail($userId);
-        return response()->json($user->restaurants);
-    }
 }

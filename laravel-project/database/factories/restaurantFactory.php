@@ -21,9 +21,11 @@ class RestaurantFactory extends Factory
             'name' => fake()->name(),
             'contact' => fake()->phoneNumber(),
             'address' => fake()->address(),
-            'tables' => fake()->name(),
-            'open-hours' => fake()->name(),
-            'menu' => fake()->name(),
+            'tables' => fake()->randomNumber(3) ,
+            'timetable' => fake()->time(),
+            'menu' => fake()->imageUrl(),
+            'logo' => fake()->imageUrl(),
+            'open-hours' => fake()->randomNumber(3) , // borrar!
             //
         ];
     }

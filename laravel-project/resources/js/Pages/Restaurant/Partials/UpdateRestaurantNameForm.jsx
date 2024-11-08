@@ -13,13 +13,13 @@ export default function UpdateRestaurantName({ restaurant }) {
             contact:   restaurant.contact,
             address:   restaurant.address,
             menu:      restaurant.menu,
-            timetable: restaurant.horarios,
+            timetable: restaurant.timetable,
             logo:      restaurant.logo,
         });
 
     const submit = (e) => {
         e.preventDefault();
-        patch(route('restaurant.update'));
+        patch(route('restaurant.update', { id: restaurant.id }));
     };
 
     return (
@@ -50,16 +50,29 @@ export default function UpdateRestaurantName({ restaurant }) {
                 </div>
 
                 <div>
-                    <InputLabel value="Menu URL" />
+                    <InputLabel value="Teléfono" />
                     <TextInput
-                        id="menu"
+                        id="telefono"
                         className="mt-1 block w-full"
-                        value={data.menu}
-                        onChange={(e) => setData('menu', e.target.value)}
+                        value={data.contact}
+                        onChange={(e) => setData('contact', e.target.value)}
                         required
-                        autoComplete="menu"
+                        autoComplete="telefono"
                     />
-                    <InputError className="mt-2" message={errors.menu} />
+                    <InputError className="mt-2" message={errors.telefono} />
+                </div>
+
+                <div>
+                    <InputLabel value="Dirección" />
+                    <TextInput
+                        id="Dirección"
+                        className="mt-1 block w-full"
+                        value={data.address}
+                        onChange={(e) => setData('address', e.target.value)}
+                        required
+                        autoComplete="dirección"
+                    />
+                    <InputError className="mt-2" message={errors.telefono} />
                 </div>
 
                 <div>
@@ -76,16 +89,16 @@ export default function UpdateRestaurantName({ restaurant }) {
                 </div>
 
                 <div>
-                    <InputLabel value="Teléfono" />
+                    <InputLabel value="Menu URL" />
                     <TextInput
-                        id="telefono"
+                        id="menu"
                         className="mt-1 block w-full"
-                        value={data.contact}
-                        onChange={(e) => setData('contact', e.target.value)}
+                        value={data.menu}
+                        onChange={(e) => setData('menu', e.target.value)}
                         required
-                        autoComplete="telefono"
+                        autoComplete="menu"
                     />
-                    <InputError className="mt-2" message={errors.telefono} />
+                    <InputError className="mt-2" message={errors.menu} />
                 </div>
 
                 <div>

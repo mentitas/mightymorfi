@@ -28,17 +28,30 @@ class DatabaseSeeder extends Seeder
             'password' => 'test1234'
         ]);
         Restaurant::truncate();
-        $restaurant = Restaurant::factory()->create([
-            'name' => 'Test Restaurant',
-            'address' => '123 Main Street',
+        $restaurant1 = Restaurant::factory()->create([
+            'name' => 'Crustaceo Cascarudo',
+            'address' => 'Fondo de Bikini',
             'owner_id' => $user->id,
-            'menu' => 'https://example.com/menu',
-            'horarios' => '9am - 9pm',
-            'telefono' => '1234567890',
-            'logo' => 'https://example.com/logo.png',
+            'menu' => 'https://example.com/menu-con-kangreburger-y-papafritas',
+            'timetable' => '9am - 9pm',
+            'contact' => '1234567890',
+            'logo' => 'https://example.com/kangreburger.png',
+            'tables' => "25"
         ]);
+        $restaurant2 = Restaurant::factory()->create([
+            'name' => 'Balde de Carnada',
+            'address' => 'Fondo de Bikini (zona shady)',
+            'owner_id' => $user->id,
+            'menu' => 'https://example.com/menu-con-comida-fea',
+            'timetable' => '9am - 10am',
+            'contact' => '111222333',
+            'logo' => 'https://example.com/logo-malvado.png',
+            'tables' => "1"
+        ]);
+
+
         Order::factory()->create([
-        'restaurant' => $restaurant->id,
+        'restaurant' => $restaurant1->id,
         'table' => '4',
         'content' => 'Un café con leche y un rol de canela',
         'status' => 'Esperando',

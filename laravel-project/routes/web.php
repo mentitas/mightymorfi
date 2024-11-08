@@ -16,16 +16,20 @@ Route::get('/', function () {
     // ]);
 });
 
+
+// ***mapa***
 Route::get('/map', function () {
     return Inertia::render('Map');
 });
 
 Route::get('/api/restaurants/locations', [RestaurantController::class, 'locations']);
 
+// ***dashboard***
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// ***restaurant***
 Route::get('/restaurant', function () {
     $user = auth()->user();
     
@@ -39,10 +43,14 @@ Route::get('/restaurant', function () {
 })->middleware(['auth', 'verified'])->name('restaurant');
 
 
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    //Route::get('/restaurant/', [RestaurantController::class, ''])->name('restaurant.edit');
+    Route::patch('/restaurant/{id}', [RestaurantController::class, 'update'])->name('restaurant.update');
 });
 
 require __DIR__.'/auth.php';
