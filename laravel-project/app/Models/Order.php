@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
-class restaurant extends Model
+class Order extends Model
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -20,13 +20,11 @@ class restaurant extends Model
     // Todo: quizás castear los tipos de cada coso
 
     protected $fillable = [
-        'name',
-        'owner',
-        'email',
-        'open-hours',
-        'address',
-        'menu',
-        'tables',
+        'id',
+        'restaurant',
+        'table',
+        'content',
+        'status',
     ];
 
     public function owner()
