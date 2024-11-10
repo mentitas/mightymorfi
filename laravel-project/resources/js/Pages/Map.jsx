@@ -7,8 +7,9 @@ export default function map() {
         <DefaultLayout
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Restaurant
+                    Restaurant Finder
                 </h2>
+                
             }
         >
             <Head title="Restaurant map" />

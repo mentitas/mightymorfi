@@ -10,7 +10,7 @@ class RestaurantController extends Controller
 
     public function locations()
     {
-        $restaurants = Restaurant::select('name', 'latitude', 'longitude')->get();
+        $restaurants = Restaurant::select('name', 'latitude', 'longitude','horarios','menu')->get();
         return response()->json($restaurants);
     }
 

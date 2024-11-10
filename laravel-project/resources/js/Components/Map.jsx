@@ -49,7 +49,22 @@ const SimpleMap = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {locations.map((location, index) => (
-          <Marker key={index} position={[location.latitude, location.longitude]} />
+        <Marker key={index} position={[location.latitude, location.longitude]}>
+          <Popup>
+              <h3 className="font-bold">{location.name}</h3>
+              <p><strong>Opening Hours:</strong> {location.horarios || "Not Available"}</p>
+              <p>
+                <a href={location.menu} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+                  View Menu
+                </a>
+              </p>
+              <p>
+                <a href="#" className="text-blue-500 underline">
+                  Order Takeout
+                </a>
+              </p>
+            </Popup>
+        </Marker>
         ))}
       {
         // Add a marker for the user's current location
