@@ -35,19 +35,37 @@ const SimpleMap = () => {
       .catch((error) => console.error('Error fetching locations:', error));
   }, []);
 
-  return ( 
-    <MapContainer center={[latitude, longitude]} zoom={13} ref={mapRef} style={{ height: "100vh", width: "100vw" }}>
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      {
-        locations.map((location, index) => (
-          <Marker key={index} position={[location.latitude, location.longitude]}>
-            <Popup>{location.name}</Popup>
-          </Marker>
-        ))
-      }
+  return (
+    <div className="mx-auto max-w-screen-lg px-4"> {/* Centers and constrains width */}
+      <MapContainer
+        center={[latitude, longitude]}
+        zoom={13}
+        ref={mapRef}
+        style={{ height: "500px", width: "100%" }} // Width is responsive to container
+        className="rounded-lg shadow-lg"
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {locations.map((location, index) => (
+        <Marker key={index} position={[location.latitude, location.longitude]}>
+          <Popup>
+              <h3 className="font-bold">{location.name}</h3>
+              <p><strong>Opening Hours:</strong> {location.horarios || "Not Available"}</p>
+              <p>
+                <a href={location.menu} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+                  View Menu
+                </a>
+              </p>
+              <p>
+                <a href="#" className="text-blue-500 underline">
+                  Order Takeout
+                </a>
+              </p>
+            </Popup>
+        </Marker>
+        ))}
       {
         // Add a marker for the user's current location
         navigator.geolocation.getCurrentPosition((position) => {
@@ -60,6 +78,7 @@ const SimpleMap = () => {
         })
       }
     </MapContainer>
+  </div>
   );
 };
 
