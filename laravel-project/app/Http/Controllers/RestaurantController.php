@@ -1,9 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 use App\Models\Restaurant; 
+use App\Http\Requests\RestaurantUpdateRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Inertia\Response;
+
+
+
 
 class RestaurantController extends Controller
 {
@@ -13,6 +20,26 @@ class RestaurantController extends Controller
         $restaurants = Restaurant::select('name', 'latitude', 'longitude')->get();
         return response()->json($restaurants);
     }
+
+
+
+
+    public function update2(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            //'description' => 'nullable|string|max:500',
+        ]);
+
+        $data = Restaurant::findOrFail($id);
+        $data->update([
+            'name' => $request->input('name'),
+            //'description' => $request->input('description'),
+        ]);
+
+        return redirect()->route('edit', $data->id)->with('success', 'Data updated successfully!');
+    }
+
 
     /**
      * Display the restaurants's profile form.
@@ -29,19 +56,17 @@ class RestaurantController extends Controller
     /**
      * Update the restaurants's profile information.
      */
-    /*
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    
+    public function update(RestaurantUpdateRequest $request, $restaurantId): RedirectResponse
     {
-        $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+        $restaurant = Restaurant::findOrFail($restaurantId);
+        $restaurant->fill($request->validated());
+        $restaurant->save();
 
-        $request->user()->save();
 
-        return Redirect::route('profile.edit');
+        return Redirect::route('restaurant');
     }
-    */
+    
 
 }

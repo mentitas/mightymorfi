@@ -22,11 +22,11 @@ class restaurant extends Model
     protected $fillable = [
         'name',
         'owner',
-        'email',
-        'open-hours',
         'address',
         'menu',
         'tables',
+        'timetable',
+        'contact',
     ];
 
     public function owner()
