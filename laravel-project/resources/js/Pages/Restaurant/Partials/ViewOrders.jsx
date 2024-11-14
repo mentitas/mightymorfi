@@ -30,7 +30,15 @@ export default function ViewOrders({
                         <div key={index} className="order-item p-4 mb-4 border rounded-lg">
                             <h2>Comanda en mesa {order}</h2>
                             <p>Descripción de la comanda en mesa {order}</p>
-                            <PrimaryButton>Entregar</PrimaryButton>
+                            <p className="mt-1 text-sm text-gray-600"> Cambiar estado: </p>
+                            <div className="mt-1 flex justify-between w-full">
+                                <div className="flex space-x-r">
+                                    <PrimaryButton>Por preparar</PrimaryButton>
+                                    <PrimaryButton>Preparando</PrimaryButton>
+                                    <PrimaryButton>Entregado</PrimaryButton>
+                                </div>
+                                <PrimaryButton> Borrar comanda </PrimaryButton>
+                            </div>
                         </div>
                     ))}
                 </div>

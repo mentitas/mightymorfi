@@ -17,23 +17,23 @@ export default function Restaurant() {
                 </h2>
             }
         >
-            <Head title="Restaurant" />
-
-        <div className="py-12">
-            <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                    <div className="p-6 text-gray-900">
-                        <ul>
-                          {restaurants.map((restaurant) => (
-                            <li key={restaurant.id}>
+            
+            <Head title="Restaurants" />
+                
+                <ul>
+                    {restaurants.map((restaurant) => (
+                    <li key={restaurant.id}>
+                        <div className="py-12">
+                        <div className="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
+                        <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8">
                                 <RestaurantManagement restaurant={restaurant}/>
-                            </li>
-                          ))}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+                        </div>
+                        </div>
+                        </div>
+                    </li>
+                    ))}
+                </ul>
+
         </AuthenticatedLayout>
     );
 }
