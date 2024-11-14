@@ -26,7 +26,7 @@ Route::get('/restaurant', function () {
     $restaurants = $user->restaurants()->get()->toArray();
     $hasRestaurant = $user->restaurants()->exists();
     
-    return Inertia::render('Restaurant', [
+    return Inertia::render('Restaurant/RestaurantList', [
         'restaurants' => $restaurants,
         'hasRestaurant' => $hasRestaurant,
     ]);
@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     //Route::get('/restaurant/', [RestaurantController::class, ''])->name('restaurant.edit');
+    Route::get('/restaurant/create', [RestaurantController::class, 'view']);
     Route::patch('/restaurant/{id}', [RestaurantController::class, 'update'])->name('restaurant.update');
 });
 

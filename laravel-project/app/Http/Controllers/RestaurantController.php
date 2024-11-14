@@ -67,6 +67,15 @@ class RestaurantController extends Controller
 
         return Redirect::route('restaurant');
     }
+
+    public function view(Request $request): Response
+    {
+        return Inertia::render('Restaurant/RestaurantCreate', [
+            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'status' => session('status'),
+        ]);
+    }
+
     
 
 }
