@@ -1,10 +1,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
-import RestaurantManagement from './Restaurant/RestaurantManagement.jsx';
+import RestaurantManagement from './RestaurantManagement.jsx';
 import { Link, useForm, usePage } from '@inertiajs/react';
 
 
-export default function Restaurant() {
+export default function RestaurantList() {
     
     const user = usePage().props.auth.user;
     const { restaurants } = usePage().props;
