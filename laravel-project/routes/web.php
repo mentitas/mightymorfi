@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -13,6 +14,7 @@ Route::get('/', function () {
 });
 
 Route::get('/api/restaurants/locations', [RestaurantController::class, 'locations']);
+Route::get('/api/restaurants/orders',    [OrderController::class,      'orders']);
 
 // ***dashboard***
 Route::get('/dashboard', function () {
@@ -25,7 +27,7 @@ Route::get('/restaurant', function () {
     
     $restaurants = $user->restaurants()->get()->toArray();
     $hasRestaurant = $user->restaurants()->exists();
-    
+
     return Inertia::render('Restaurant/RestaurantList', [
         'restaurants' => $restaurants,
         'hasRestaurant' => $hasRestaurant,

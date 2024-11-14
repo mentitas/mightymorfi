@@ -17,6 +17,9 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         User::truncate();
+        Restaurant::truncate();
+        Order::truncate();
+        
         $user = User::factory()->create([
             'name' => 'TestUser1',
             'email' => 'test1@example.com',
@@ -27,7 +30,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'test2@example.com',
             'password' => 'test1234'
         ]);
-        Restaurant::truncate();
         $restaurant1 = Restaurant::factory()->create([
             'name' => 'Crustaceo Cascarudo',
             'address' => 'Fondo de Bikini',
@@ -49,12 +51,11 @@ class DatabaseSeeder extends Seeder
             'tables' => "1"
         ]);
 
-
         Order::factory()->create([
-        'restaurant' => $restaurant1->id,
-        'table' => '4',
-        'content' => 'Un café con leche y un rol de canela',
-        'status' => 'Esperando',
+            'restaurant' => $restaurant1->id,
+            'table' => '4',
+            'content' => 'Un café con leche y un rol de canela',
+            'status' => 'Esperando',
         ]);
     }
 }
