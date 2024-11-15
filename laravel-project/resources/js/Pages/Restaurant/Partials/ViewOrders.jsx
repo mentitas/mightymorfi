@@ -1,4 +1,5 @@
 import PrimaryButton from '@/Components/PrimaryButton';
+import DangerButton from '@/Components/DangerButton';
 import { Transition } from '@headlessui/react';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { useEffect, useState, useRef } from 'react';
@@ -17,10 +18,10 @@ export default function ViewOrders({
         .then((data) => setOrders(data))
         .catch((error) => console.error('Error fetching orders:', error));
     }, []);
-    console.log(orders)
+
     return (
 
-        <section>
+        <div className = "pb-10">
             
             <header>
                 <h2 className="text-lg font-medium text-gray-900">
@@ -31,20 +32,22 @@ export default function ViewOrders({
                     Administrá las comandas de tu restaurant.
                 </p>
             </header>
+
+
              {orders.length > 0 ? (
             <div>
                 {orders.map((order, index) => (
                     <div key={index} className="order-item p-4 mb-4 border rounded-lg">
                         <h2>Comanda en mesa {order.table}</h2>
                         <p>{order.content}</p>
-                        <p className="mt-1 text-sm text-gray-600"> Cambiar estado: </p>
+                        <p className="mt-1 text-sm text-gray-600"> Cambiar estado:</p>
                         <div className="mt-1 flex justify-between w-full">
                             <div className="flex space-x-r">
                                 <PrimaryButton>Por preparar</PrimaryButton>
                                 <PrimaryButton>Preparando</PrimaryButton>
                                 <PrimaryButton>Entregado</PrimaryButton>
                             </div>
-                            <PrimaryButton> Borrar comanda </PrimaryButton>
+                            <DangerButton> Borrar comanda </DangerButton>
                         </div>
                     </div>
 
@@ -55,6 +58,6 @@ export default function ViewOrders({
             )}
 
            
-        </section>
+        </div>
     );
 }

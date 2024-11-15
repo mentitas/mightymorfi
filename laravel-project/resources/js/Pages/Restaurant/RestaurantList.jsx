@@ -21,13 +21,7 @@ export default function RestaurantList() {
         <Head title="Restaurant" />
 
         <div className="py-12">
-            <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <Link
-                    href="/restaurant/create"
-                    className="inline-block px-4 py-2 mt-2 text-white bg-green-500 rounded hover:bg-green-600"
-                >
-                    Registrar Restaurant
-                </Link>
+
                 <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                     <div className="p-6 text-gray-900">
                         <ul>
@@ -41,15 +35,18 @@ export default function RestaurantList() {
                             ) : (
                                 <>
                                 <p className="mt-4 text-gray-700">Parece que no tenés ningún restaurant...</p>
-                                <Link
-                                    href="/restaurant/create"
-                                    className="inline-block px-4 py-2 mt-2 text-white bg-green-500 rounded hover:bg-green-600"
-                                >
-                                    Registrar
-                                </Link>
                                 </>
                             )}
                         </ul>
+
+                    <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                        <Link
+                            href="/restaurant/create"
+                            className="inline-block px-4 py-2 mt-2 text-white bg-green-500 rounded hover:bg-green-600"
+                        >
+                            Registrar un nuevo restaurant
+                        </Link>
+
                     </div>
                 </div>
             </div>

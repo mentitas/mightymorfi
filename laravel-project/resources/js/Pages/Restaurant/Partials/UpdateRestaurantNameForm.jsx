@@ -23,7 +23,7 @@ export default function UpdateRestaurantName({ restaurant }) {
     };
 
     return (
-        <section className="max-w-xl">
+        <section className="max-w-xl pb-30">
             <header>
                 <h2 className="text-lg font-medium text-gray-900">
                     Editar {restaurant.name}

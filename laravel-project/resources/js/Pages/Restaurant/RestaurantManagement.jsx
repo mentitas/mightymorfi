@@ -9,8 +9,11 @@ export default function Edit({ restaurant }) {
     return (
         <>        
             <Head title="Restaurant Management" />
-                <ViewOrders               restaurant={restaurant} />
-                <UpdateRestaurantNameForm restaurant={restaurant} />
+                <div className = "pb-20">
+                    <h1 className = "text-xl font-semibold leading-tight text-gray-800 pb-5"> {restaurant.name} </h1>
+                    <ViewOrders               restaurant={restaurant} />
+                    <UpdateRestaurantNameForm restaurant={restaurant} />
+                </div>
         </>
     );
 }
