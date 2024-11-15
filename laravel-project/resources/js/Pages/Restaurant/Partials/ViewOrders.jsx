@@ -12,7 +12,7 @@ export default function ViewOrders({
 
     useEffect(() => {
       // Fetch restaurant orders from the backend
-      fetch('/api/restaurants/orders')
+      fetch('/api/orders/' + restaurant.id)
         .then((response) => response.json())
         .then((data) => setOrders(data))
         .catch((error) => console.error('Error fetching orders:', error));
