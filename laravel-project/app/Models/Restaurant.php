@@ -33,4 +33,12 @@ class restaurant extends Model
     {
         return $this->belongsTo(User::class, 'owner_id');
     }
+
+    /**
+     * acceder a las ordenes de un restaurant desde el modelo Restaurant
+     */
+    public function orders()
+    {
+        return $this->hasMany(Orders::class, 'restaurant');
+    }
 }

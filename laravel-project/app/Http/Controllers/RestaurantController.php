@@ -22,8 +22,6 @@ class RestaurantController extends Controller
     }
 
 
-
-
     public function update2(Request $request, $id)
     {
         $request->validate([
