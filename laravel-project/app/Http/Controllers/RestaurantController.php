@@ -15,12 +15,19 @@ use Inertia\Response;
 class RestaurantController extends Controller
 {
 
+    // ¡Cambiar! La llamada a la base de datos debe estar adentro del modelo Restaurant 
     public function locations()
     {
         $restaurants = Restaurant::select('name', 'latitude', 'longitude','horarios','menu')->get();
         return response()->json($restaurants);
     }
 
+
+    public function restaurantsFromUser($userId)
+    {
+        $restaurants = Restaurant::where('owner_id', $userId)->get();
+        return response()->json($restaurants);
+    }
 
     public function update2(Request $request, $id)
     {

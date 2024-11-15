@@ -3,12 +3,21 @@ import { Head } from '@inertiajs/react';
 import RestaurantManagement from './RestaurantManagement.jsx';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import PrimaryButton from '@/Components/PrimaryButton.jsx';
+import { useEffect, useState, useRef } from 'react';
 
 
 export default function RestaurantList() {
     
     const user = usePage().props.auth.user;
-    const { restaurants } = usePage().props;
+    const [restaurants, setRestaurants] = useState([]);
+
+    useEffect(() => {
+      // Fetch user's restaurants from the backend
+      fetch('/api/restaurants/' + user.id)
+        .then((response) => response.json())
+        .then((data) => setRestaurants(data))
+        .catch((error) => console.error('Error fetching restaurants:', error));
+    }, []);
 
     return (
         <AuthenticatedLayout

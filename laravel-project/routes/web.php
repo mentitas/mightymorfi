@@ -13,9 +13,10 @@ Route::get('/', function () {
     return Inertia::render('Map');
 });
 
-Route::get('/api/restaurants/locations',    [RestaurantController::class, 'locations']);
-Route::get('/api/orders/',                  [OrderController::class,      'orders']);
-Route::get('/api/orders/{restaurantId}',    [OrderController::class,      'ordersFromRestaurant']);
+Route::get('/api/restaurants/locations',   [RestaurantController::class,  'locations']);
+Route::get('/api/restaurants/{userId}',    [RestaurantController::class,  'restaurantsFromUser']);
+Route::get('/api/orders/{restaurantId}',   [OrderController::class,       'ordersFromRestaurant']);
+// Route::get('/api/orders/',                  [OrderController::class,      'orders']);
 
 // ***dashboard***
 Route::get('/dashboard', function () {
@@ -24,15 +25,7 @@ Route::get('/dashboard', function () {
 
 // ***restaurant***
 Route::get('/restaurant', function () {
-    $user = auth()->user();
-    
-    $restaurants = $user->restaurants()->get()->toArray();
-    $hasRestaurant = $user->restaurants()->exists();
-
-    return Inertia::render('Restaurant/RestaurantList', [
-        'restaurants' => $restaurants,
-        'hasRestaurant' => $hasRestaurant,
-    ]);
+    return Inertia::render('Restaurant/RestaurantList', []);
 })->middleware(['auth', 'verified'])->name('restaurant');
 
 

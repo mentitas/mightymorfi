@@ -13,6 +13,7 @@ use Inertia\Response;
 class OrderController extends Controller
 {
 
+    // ¡Cambiar! La llamada a la base de datos debe estar adentro del modelo Order
     public function orders()
     {   
         $orders = Order::select('restaurant', 'table', 'content','status')->get();
