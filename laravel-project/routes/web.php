@@ -13,8 +13,9 @@ Route::get('/', function () {
     return Inertia::render('Map');
 });
 
-Route::get('/api/restaurants/locations', [RestaurantController::class, 'locations']);
-Route::get('/api/restaurants/orders',    [OrderController::class,      'orders']);
+Route::get('/api/restaurants/locations',    [RestaurantController::class, 'locations']);
+Route::get('/api/orders/',                  [OrderController::class,      'orders']);
+Route::get('/api/orders/{restaurantId}',    [OrderController::class,      'ordersFromRestaurant']);
 
 // ***dashboard***
 Route::get('/dashboard', function () {

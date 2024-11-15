@@ -13,10 +13,18 @@ use Inertia\Response;
 class OrderController extends Controller
 {
 
-    // Me copio de locations() :3
     public function orders()
     {   
         $orders = Order::select('restaurant', 'table', 'content','status')->get();
+        return response()->json($orders);
+    }
+
+    // Me copio de locations() :3
+    public function ordersFromRestaurant($restaurantId)
+    {   
+        $orders = Order::where('restaurant', $restaurantId)
+               ->select('restaurant', 'table', 'content', 'status')
+               ->get();
         return response()->json($orders);
     }
 
