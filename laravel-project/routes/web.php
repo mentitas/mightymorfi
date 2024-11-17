@@ -19,11 +19,6 @@ Route::get('/api/restaurants/user/{userId}',        [RestaurantController::class
 Route::get('/api/orders/restaurant/{restaurantId}', [OrderController::class,       'ordersFromRestaurant']);
 Route::get('/api/orders/user/{userId}',             [OrderController::class,       'ordersFromUser']);
 
-// ***dashboard***
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 // ***restaurant***
 Route::get('/restaurant', function () {
     return Inertia::render('Restaurant/RestaurantList', []);
