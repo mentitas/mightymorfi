@@ -1,26 +1,32 @@
 # Uso imagen de Composer como base
 FROM composer:lts
 
-# Copio el codigo al container
-COPY ./laravel-project /var/www/html
+# INSTALACION NODE
+RUN apk add --update nodejs npm
 
 # Set the working directory (Para exponer en APACHE)
 WORKDIR /var/www/html
 
-# INSTALACION NODE
-RUN apk add --update nodejs npm
+# Copio el codigo al container
+COPY ./laravel-project/package.json  .
 
 # Instalacion dependencias
+RUN npm install
+
+# Copio resto codigo
+COPY ./laravel-project  .
+
+# Instalacion COMPOSER
 RUN composer install
 
 # Populacion DB
-RUN php artisan migrate
+RUN php artisan migrate --seed
 
 # Set permissions (Para exponer en APACHE)
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 # BUILDEAR Y PUBLICAR APP EN SERVER PRUEBA
-RUN npm install && npm run build
+RUN npm run build
 
 CMD php artisan serve --host 0.0.0.0
 

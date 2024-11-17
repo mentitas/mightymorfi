@@ -25,8 +25,8 @@ class RestaurantFactory extends Factory
             'timetable' => fake()->time(),
             'menu' => fake()->imageUrl(),
             'logo' => fake()->imageUrl(),
-            'open-hours' => fake()->randomNumber(3) , // borrar!
-            //
+            'latitude' => '-34.6055491862155',
+            'longitude'=>'-58.5634932603933'
         ];
     }
 }

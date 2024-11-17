@@ -38,7 +38,9 @@ class DatabaseSeeder extends Seeder
             'timetable' => '9am - 9pm',
             'contact' => '1234567890',
             'logo' => 'https://example.com/kangreburger.png',
-            'tables' => "25"
+            'tables' => "25",
+            'latitude' => '-34.6055491862155',
+            'longitude'=>'-58.5634932603933'
         ]);
         $restaurant2 = Restaurant::factory()->create([
             'name' => 'Balde de Carnada',
@@ -48,7 +50,9 @@ class DatabaseSeeder extends Seeder
             'timetable' => '9am - 10am',
             'contact' => '111222333',
             'logo' => 'https://example.com/logo-malvado.png',
-            'tables' => "1"
+            'tables' => "1",
+            'latitude' => '-34.607683813430604',
+            'longitude'=>'-58.56353675727036'
         ]);
 
         Order::factory()->create([

@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('contact');
-            $table->string('open-hours');
             $table->string('address');
             $table->string('menu');
             $table->integer('tables');
