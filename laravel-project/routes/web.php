@@ -1,17 +1,14 @@
 <?php
 
-use App\Http\Controllers\RestaurantController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\{RestaurantController, OrderController, ProfileController, MapController};
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 
 // ***mapa***
-Route::get('/', function () {
-    return Inertia::render('Map');
-});
+Route::get('/', [MapController::class, 'view']);
+
 
 Route::get('/api/restaurants/locations',            [RestaurantController::class,  'locations']);
 Route::get('/api/restaurants/{restaurantId}',       [RestaurantController::class,  'getRestaurantInfo']);

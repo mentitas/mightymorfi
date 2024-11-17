@@ -1,3 +1,4 @@
+import { usePage } from '@inertiajs/react';
 import { useEffect, useState, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
@@ -25,15 +26,16 @@ const SimpleMap = () => {
   const latitude = 51.505;
   const longitude = -0.09;
 
-  const [locations, setLocations] = useState([]);
+  const locations = usePage().props.locations;
+  //const [locations, setLocations] = useState([]);
 
-  useEffect(() => {
-    // Fetch restaurant locations from the backend
-    fetch('/api/restaurants/locations')
-      .then((response) => response.json())
-      .then((data) => setLocations(data))
-      .catch((error) => console.error('Error fetching locations:', error));
-  }, []);
+  // useEffect(() => {
+  //   // Fetch restaurant locations from the backend
+  //   fetch('/api/restaurants/locations')
+  //     .then((response) => response.json())
+  //     .then((data) => setLocations(data))
+  //     .catch((error) => console.error('Error fetching locations:', error));
+  // }, []);
 
   return (
     <div className="mx-auto max-w-screen-lg px-4"> {/* Centers and constrains width */}
