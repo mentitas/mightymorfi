@@ -13,10 +13,11 @@ Route::get('/', function () {
     return Inertia::render('Map');
 });
 
-Route::get('/api/restaurants/locations',   [RestaurantController::class,  'locations']);
-Route::get('/api/restaurants/{userId}',    [RestaurantController::class,  'restaurantsFromUser']);
-Route::get('/api/orders/{restaurantId}',   [OrderController::class,       'ordersFromRestaurant']);
-// Route::get('/api/orders/',                  [OrderController::class,      'orders']);
+Route::get('/api/restaurants/locations',            [RestaurantController::class,  'locations']);
+Route::get('/api/restaurants/{restaurantId}',       [RestaurantController::class,  'getRestaurantInfo']);
+Route::get('/api/restaurants/user/{userId}',        [RestaurantController::class,  'restaurantsFromUser']);
+Route::get('/api/orders/restaurant/{restaurantId}', [OrderController::class,       'ordersFromRestaurant']);
+Route::get('/api/orders/user/{userId}',             [OrderController::class,       'ordersFromUser']);
 
 // ***dashboard***
 Route::get('/dashboard', function () {
@@ -29,6 +30,20 @@ Route::get('/restaurant', function () {
 })->middleware(['auth', 'verified'])->name('restaurant');
 
 
+Route::get('/order/{restaurantId}/{table}', function ($restaurantId, $table) {
+    return Inertia::render('Order/Order', [
+        'canOrder' => true,
+        'restaurantId' => $restaurantId,
+        'table' => $table,
+    ]); 
+})->middleware(['auth', 'verified'])->name('order');
+
+
+Route::get('/order/', function () {
+    return Inertia::render('Order/Order', [
+        'canOrder' => false
+    ]); 
+})->middleware(['auth', 'verified'])->name('order');
 
 
 Route::middleware('auth')->group(function () {
@@ -39,6 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/restaurant/create', [RestaurantController::class, 'view']);
     Route::patch('/restaurant/{id}',  [RestaurantController::class, 'update'])->name('restaurant.update');
     Route::patch('/order/{id}/{status}', [OrderController::class, 'updateStatus'])->name('order.updateStatus');
+    Route::patch('/order', [OrderController::class, 'store'])->name('order.store');
     Route::patch('/order/{id}', [OrderController::class, 'delete'])->name('order.delete');
 
 });

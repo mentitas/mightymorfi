@@ -13,7 +13,7 @@ export default function RestaurantList() {
 
     useEffect(() => {
       // Fetch user's restaurants from the backend
-      fetch('/api/restaurants/' + user.id)
+      fetch('/api/restaurants/user/' + user.id)
         .then((response) => response.json())
         .then((data) => setRestaurants(data))
         .catch((error) => console.error('Error fetching restaurants:', error));

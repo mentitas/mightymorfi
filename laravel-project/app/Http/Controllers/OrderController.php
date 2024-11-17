@@ -28,6 +28,12 @@ class OrderController extends Controller
         return response()->json($orders);
     }
 
+    public function ordersFromUser($userId)
+    {
+        $orders = Order::where('user_id', $userId)->get();
+        return response()->json($orders);
+    }
+
     public function updateStatus(Request $request, $orderId, $status): RedirectResponse
     {
 
@@ -36,6 +42,19 @@ class OrderController extends Controller
         $order->save();
 
         return Redirect::route('restaurant');
+    }
+
+    public function store(Request $request): RedirectResponse
+    {
+        $order = Order::create([
+            'restaurant' => $request["restaurant"],
+            'table'      => $request["table"],
+            'content'    => $request["content"],
+            'status'     => $request["status"],
+            'user_id'    => $request["user_id"],
+        ]);
+
+        return Redirect::route('order');
     }
 
     public function delete(Request $request, $orderId): RedirectResponse

@@ -25,6 +25,7 @@ class Order extends Model
         'table',
         'content',
         'status',
+        'user_id'
     ];
 
         public function owner()

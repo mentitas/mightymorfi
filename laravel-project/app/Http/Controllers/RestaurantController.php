@@ -25,46 +25,17 @@ class RestaurantController extends Controller
         return response()->json($restaurants);
     }
 
-    public function update2(Request $request, $id)
+    public function getRestaurantInfo(Request $request, $restaurantId)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            //'description' => 'nullable|string|max:500',
-        ]);
-
-        $data = Restaurant::findOrFail($id);
-        $data->update([
-            'name' => $request->input('name'),
-            //'description' => $request->input('description'),
-        ]);
-
-        return redirect()->route('edit', $data->id)->with('success', 'Data updated successfully!');
+        $restaurant = Restaurant::findOrFail($restaurantId);
+        return response()->json($restaurant);
     }
 
-
-    /**
-     * Display the restaurants's profile form.
-     */
-    /*
-    public function edit(Request $request): Response
-    {
-        return Inertia::render('Profile/Edit', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
-            'status' => session('status'),
-        ]);
-    }
-    */
-    /**
-     * Update the restaurants's profile information.
-     */
-    
     public function update(RestaurantUpdateRequest $request, $restaurantId): RedirectResponse
     {
-
         $restaurant = Restaurant::findOrFail($restaurantId);
         $restaurant->fill($request->validated());
         $restaurant->save();
-
 
         return Redirect::route('restaurant');
     }

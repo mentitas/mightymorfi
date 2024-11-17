@@ -32,7 +32,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                 </NavLink>
                                 {/*TODO PONER LA RUTA A PEDIDOS EN VISTA DUEÑO*/}
                                 <NavLink
-                                    href={route('restaurant')}
+                                    href={route('order')}
                                     active={false}
                                 >
                                     Pedidos

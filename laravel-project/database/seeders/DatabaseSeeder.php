@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'test1@example.com',
             'password' => 'test1234'
         ]);
-        User::factory()->create([
+        $user2 = User::factory()->create([
             'name' => 'TestUser2',
             'email' => 'test2@example.com',
             'password' => 'test1234'
@@ -55,7 +55,8 @@ class DatabaseSeeder extends Seeder
             'restaurant' => $restaurant1->id,
             'table' => '4',
             'content' => 'Un café con leche y un rol de canela',
-            'status' => 'Esperando',
+            'status' => 'Por preparar',
+            'user_id' => $user2->id,
         ]);
     }
 }

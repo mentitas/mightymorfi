@@ -5,7 +5,6 @@ import UpdateRestaurantNameForm from './Partials/UpdateRestaurantNameForm.jsx';
 import { Link, useForm, usePage } from '@inertiajs/react';
 
 export default function Edit({ restaurant }) {
-    console.error(restaurant);
     return (
         <>        
             <Head title="Restaurant Management" />

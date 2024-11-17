@@ -11,12 +11,10 @@ export default function ViewOrders({
 
     const [orders, setOrders] = useState([]);
 
-    const porPrepararColor = "blue";
-
     const { data, setData, patch } = useForm();
 
     const fetchOrders = () => {
-      fetch('/api/orders/' + restaurant.id)
+      fetch('/api/orders/restaurant/' + restaurant.id)
         .then((response) => response.json())
         .then((data) => setOrders(data))
         .catch((error) => console.error('Error fetching orders:', error));
@@ -24,12 +22,10 @@ export default function ViewOrders({
 
     const changeOrderStatus = (orderId, status) => {
         patch(route('order.updateStatus', { id: orderId, status: status}), {
-
             onSuccess: ()    => { fetchOrders(); },
             onError: (error) => { console.error('Error updating order status: ', error); }
         });
     };
-
 
     const deleteOrder = (orderId) => {
         patch(route('order.delete', { id: orderId}), {
@@ -59,7 +55,7 @@ export default function ViewOrders({
             </header>
 
 
-             {orders.length > 0 ? (
+            {orders.length > 0 ? (
             <div>
                 {orders.map((order, index) => (
                     <div key={index} className="order-item p-4 mb-4 border rounded-lg">
@@ -89,14 +85,11 @@ export default function ViewOrders({
                             </DangerButton>
                         </div>
                     </div>
-
                 ))}
             </div>
             ) : (
                 <p>No hay comandas para mostrar.</p>
-            )}
-
-           
+            )}           
         </div>
     );
 }
