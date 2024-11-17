@@ -11,13 +11,38 @@ export default function ViewOrders({
 
     const [orders, setOrders] = useState([]);
 
-    useEffect(() => {
-      // Fetch restaurant orders from the backend
+    const porPrepararColor = "blue";
+
+    const { data, setData, patch } = useForm();
+
+    const fetchOrders = () => {
       fetch('/api/orders/' + restaurant.id)
         .then((response) => response.json())
         .then((data) => setOrders(data))
         .catch((error) => console.error('Error fetching orders:', error));
+    };
+
+    const changeOrderStatus = (orderId, status) => {
+        patch(route('order.updateStatus', { id: orderId, status: status}), {
+
+            onSuccess: ()    => { fetchOrders(); },
+            onError: (error) => { console.error('Error updating order status: ', error); }
+        });
+    };
+
+
+    const deleteOrder = (orderId) => {
+        patch(route('order.delete', { id: orderId}), {
+            onSuccess: ()    => { fetchOrders(); },
+            onError: (error) => { console.error('Error deleting order: ', error); }
+        });
+    };
+
+    // Fetch restaurant orders from the backend
+    useEffect(() => {
+        fetchOrders();
     }, []);
+
 
     return (
 
@@ -40,14 +65,28 @@ export default function ViewOrders({
                     <div key={index} className="order-item p-4 mb-4 border rounded-lg">
                         <h2>Comanda en mesa {order.table}</h2>
                         <p>{order.content}</p>
-                        <p className="mt-1 text-sm text-gray-600"> Cambiar estado:</p>
+                        <p className="mt-1 text-sm text-gray-600"> Cambiar estado: {order.status}</p>
                         <div className="mt-1 flex justify-between w-full">
                             <div className="flex space-x-r">
-                                <PrimaryButton>Por preparar</PrimaryButton>
-                                <PrimaryButton>Preparando</PrimaryButton>
-                                <PrimaryButton>Entregado</PrimaryButton>
+                                <PrimaryButton 
+                                    bgColor={order.status == "Por preparar" ? "#1b9e4b" : ""}
+                                    onClick={() => changeOrderStatus(order.id, "Por preparar")}>
+                                    Por preparar
+                                </PrimaryButton>
+                                <PrimaryButton
+                                    bgColor={order.status == "Preparando" ? "#1b9e4b" : ""}
+                                    onClick={() => changeOrderStatus(order.id, "Preparando")}>
+                                    Preparando
+                                </PrimaryButton>
+                                <PrimaryButton
+                                    bgColor={order.status == "Entregado" ? "#1b9e4b" : ""}
+                                    onClick={() => changeOrderStatus(order.id, "Entregado")}>
+                                    Entregado
+                                </PrimaryButton>
                             </div>
-                            <DangerButton> Borrar comanda </DangerButton>
+                            <DangerButton onClick={() => deleteOrder(order.id)}>
+                                Borrar comanda
+                            </DangerButton>
                         </div>
                     </div>
 

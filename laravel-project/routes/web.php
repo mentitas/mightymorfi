@@ -37,7 +37,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     //Route::get('/restaurant/', [RestaurantController::class, ''])->name('restaurant.edit');
     Route::get('/restaurant/create', [RestaurantController::class, 'view']);
-    Route::patch('/restaurant/{id}', [RestaurantController::class, 'update'])->name('restaurant.update');
+    Route::patch('/restaurant/{id}',  [RestaurantController::class, 'update'])->name('restaurant.update');
+    Route::patch('/order/{id}/{status}', [OrderController::class, 'updateStatus'])->name('order.updateStatus');
+    Route::patch('/order/{id}', [OrderController::class, 'delete'])->name('order.delete');
+
 });
 
 require __DIR__.'/auth.php';

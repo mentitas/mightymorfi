@@ -9,9 +9,6 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
-
-
-
 class RestaurantController extends Controller
 {
 
@@ -21,7 +18,6 @@ class RestaurantController extends Controller
         $restaurants = Restaurant::select('name', 'latitude', 'longitude','horarios','menu')->get();
         return response()->json($restaurants);
     }
-
 
     public function restaurantsFromUser($userId)
     {

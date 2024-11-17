@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use App\Models\Restaurant; 
 use App\Models\Order; 
-use App\Http\Requests\RestaurantUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
@@ -24,9 +23,27 @@ class OrderController extends Controller
     public function ordersFromRestaurant($restaurantId)
     {   
         $orders = Order::where('restaurant', $restaurantId)
-               ->select('restaurant', 'table', 'content', 'status')
+               ->select('restaurant', 'table', 'content', 'status', 'id')
                ->get();
         return response()->json($orders);
     }
 
+    public function updateStatus(Request $request, $orderId, $status): RedirectResponse
+    {
+
+        $order = Order::findOrFail($orderId);
+        $order->status = $status;
+        $order->save();
+
+        return Redirect::route('restaurant');
+    }
+
+    public function delete(Request $request, $orderId): RedirectResponse
+    {
+
+        $order = Order::findOrFail($orderId);
+        $order->delete();
+        
+        return Redirect::route('restaurant');
+    }
 }
