@@ -1,44 +1,26 @@
 import PrimaryButton from '@/Components/PrimaryButton';
 import DangerButton from '@/Components/DangerButton';
 import { Transition } from '@headlessui/react';
-import { Link, useForm, usePage } from '@inertiajs/react';
+import { router, useForm, usePage } from '@inertiajs/react';
 import { useEffect, useState, useRef } from 'react';
 
 
-export default function ViewOrders({
-    restaurant
-}) {
+export default function ViewOrders() {
 
-    const [orders, setOrders] = useState([]);
+    var orders = usePage().props.orders;
 
     const { data, setData, patch } = useForm();
 
-    const fetchOrders = () => {
-      fetch('/api/orders/restaurant/' + restaurant.id)
-        .then((response) => response.json())
-        .then((data) => setOrders(data))
-        .catch((error) => console.error('Error fetching orders:', error));
-    };
-
     const changeOrderStatus = (orderId, status) => {
         patch(route('order.updateStatus', { id: orderId, status: status}), {
-            onSuccess: ()    => { fetchOrders(); },
+            onSuccess: ()    => { orders = usePage().props.orders;},
             onError: (error) => { console.error('Error updating order status: ', error); }
         });
     };
 
     const deleteOrder = (orderId) => {
-        patch(route('order.delete', { id: orderId}), {
-            onSuccess: ()    => { fetchOrders(); },
-            onError: (error) => { console.error('Error deleting order: ', error); }
-        });
+        router.visit('/order/'+orderId, {method: 'delete'});
     };
-
-    // Fetch restaurant orders from the backend
-    useEffect(() => {
-        fetchOrders();
-    }, []);
-
 
     return (
 

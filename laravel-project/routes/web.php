@@ -11,15 +11,11 @@ Route::get('/', [MapController::class, 'view']);
 
 // Estas rutas hay que eliminarlas y pasar los datos por medio de Inertia usando props
 Route::get('/api/restaurants/{restaurantId}',       [RestaurantController::class,  'getRestaurantInfo']);
-Route::get('/api/restaurants/user/{userId}',        [RestaurantController::class,  'restaurantsFromUser']);
 Route::get('/api/orders/restaurant/{restaurantId}', [OrderController::class,       'ordersFromRestaurant']);
 Route::get('/api/orders/user/{userId}',             [OrderController::class,       'ordersFromUser']);
 
 // ***restaurant***
 // Estas rutas hay que ver en que se usan ????
-Route::get('/restaurant', function () {
-    return Inertia::render('Restaurant/RestaurantList', []);
-})->middleware(['auth', 'verified'])->name('restaurant');
 Route::get('/order/{restaurantId}/{table}', function ($restaurantId, $table) {
     return Inertia::render('Order/Order', [
         'canOrder' => true,
@@ -31,7 +27,7 @@ Route::get('/order/{restaurantId}/{table}', function ($restaurantId, $table) {
 //Esto seria para ver los pedidos desde la vista Restaurant o desde la vista Cliente?
 Route::get('/order/', function () {
     return Inertia::render('Order/Order', [
-        'canOrder' => false
+        'canOrder' => true
     ]); 
 })->middleware(['auth', 'verified'])->name('order');
 
@@ -43,14 +39,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     //Rutas para ver los restaurantes
-    //Route::get('/restaurant/', [RestaurantController::class, ''])->name('restaurant.edit');
-    Route::get('/restaurant/create', [RestaurantController::class, 'view']);
+    Route::get('/restaurant', [RestaurantController::class , 'viewList'])->name('restaurant');
+    Route::get('/restaurant/create', [RestaurantController::class, 'viewCreateForm']);
+    Route::get('/restaurant/{id}',  [RestaurantController::class, 'viewOrders'])->name('restaurantById');
     Route::patch('/restaurant/{id}',  [RestaurantController::class, 'update'])->name('restaurant.update');
 
     //Rutas para ver los pedidos
     Route::patch('/order/{id}/{status}', [OrderController::class, 'updateStatus'])->name('order.updateStatus');
     Route::patch('/order', [OrderController::class, 'store'])->name('order.store');
-    Route::patch('/order/{id}', [OrderController::class, 'delete'])->name('order.delete');
+    Route::delete('/order/{id}', [OrderController::class, 'delete'])->name('order.delete');
 
 });
 

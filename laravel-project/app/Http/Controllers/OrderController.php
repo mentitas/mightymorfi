@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Restaurant; 
-use App\Models\Order; 
+use App\Models\{Order, Restaurant}; 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
@@ -41,7 +40,8 @@ class OrderController extends Controller
         $order->status = $status;
         $order->save();
 
-        return Redirect::route('restaurant');
+        $restaurantId = $order->restaurant;
+        return to_route('restaurantById', ['id' => $restaurantId]);
     }
 
     public function store(Request $request): RedirectResponse
@@ -59,10 +59,10 @@ class OrderController extends Controller
 
     public function delete(Request $request, $orderId): RedirectResponse
     {
-
         $order = Order::findOrFail($orderId);
+        $restaurantId = $order->restaurant;
         $order->delete();
-        
-        return Redirect::route('restaurant');
+
+        return to_route('restaurantById', ['id' => $restaurantId]);
     }
 }

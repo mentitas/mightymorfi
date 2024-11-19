@@ -2,22 +2,14 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import RestaurantManagement from './RestaurantManagement.jsx';
 import { Link, useForm, usePage } from '@inertiajs/react';
-import PrimaryButton from '@/Components/PrimaryButton.jsx';
+import SecondaryButton from '@/Components/SecondaryButton.jsx';
 import { useEffect, useState, useRef } from 'react';
 
 
 export default function RestaurantList() {
     
     const user = usePage().props.auth.user;
-    const [restaurants, setRestaurants] = useState([]);
-
-    useEffect(() => {
-      // Fetch user's restaurants from the backend
-      fetch('/api/restaurants/user/' + user.id)
-        .then((response) => response.json())
-        .then((data) => setRestaurants(data))
-        .catch((error) => console.error('Error fetching restaurants:', error));
-    }, []);
+    const restaurants = usePage().props.restaurants;
 
     return (
         <AuthenticatedLayout
@@ -38,7 +30,18 @@ export default function RestaurantList() {
                             {restaurants ? (
                                 restaurants.map((restaurant) => (
                                     <li key={restaurant.id}>
-                                        <RestaurantManagement restaurant={restaurant}/>
+                                        <div className = "text-xl font-semibold leading-tight text-gray-800 pb-5 border-solid border-2 border-sky-500">
+                                            <p>{restaurant.name}</p>
+                                            <SecondaryButton>
+                                                Editar
+                                            </SecondaryButton>
+                                            <SecondaryButton>
+                                                <a href={'/restaurant/'+restaurant.id}>Ver pedidos</a>
+                                            </SecondaryButton>
+                                            <SecondaryButton>
+                                                Eliminar
+                                            </SecondaryButton>
+                                        </div>
                                     </li>
                                 ))
                             ) : (

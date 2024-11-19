@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Restaurant; 
+use App\Models\{Restaurant, Order}; 
 use App\Http\Requests\RestaurantUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
@@ -16,12 +16,6 @@ class RestaurantController extends Controller
     public function locations()
     {
         $restaurants = Restaurant::select('name', 'latitude', 'longitude','horarios','menu')->get();
-        return response()->json($restaurants);
-    }
-
-    public function restaurantsFromUser($userId)
-    {
-        $restaurants = Restaurant::where('owner_id', $userId)->get();
         return response()->json($restaurants);
     }
 
@@ -40,11 +34,32 @@ class RestaurantController extends Controller
         return Redirect::route('restaurant');
     }
 
-    public function view(Request $request): Response
+    //Render pagina creacion restaurant
+    public function viewCreateForm(Request $request): Response
     {
         return Inertia::render('Restaurant/RestaurantCreate', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
+        ]);
+    }
+
+    //Render pagina ordenes de un restaurant
+    public function viewOrders(Request $request, $restaurantId): Response
+    {
+        $restaurant = Restaurant::findOrFail($restaurantId);
+        $orders = Order::where('restaurant',$restaurantId)->select('restaurant', 'table', 'content', 'status', 'id')->get();
+        return Inertia::render('Restaurant/RestaurantOrders', [
+            'restaurant' => $restaurant,
+            'orders' => $orders
+        ]);
+    }
+
+    //Render pagina lista restaurants
+    public function viewList(Request $request): Response
+    {
+        $restaurants = Restaurant::where('owner_id', $request->user()->id)->get();
+        return Inertia::render('Restaurant/RestaurantList', [
+            'restaurants' => $restaurants
         ]);
     }
 
