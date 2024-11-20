@@ -38,28 +38,28 @@ class restaurant extends Model
         ->get();
     } 
 
-    public function getByOwner($id)
+    public static function getByOwner($id)
     {
         return Restaurant::where('owner_id', $id)->get();
         //->select('restaurant', 'table', 'content', 'status', 'id')
     }
 
-    public function getByName($name)
+    public static function getByName($name)
     {
         return Restaurant::where('name', $name)->get();
     }
 
-    public function getInfo($id)
+    public static function getInfo($id)
     {
         return Order::findOrFail($id);
     }
 
-    public function newRestaurant($atributtes)
+    public static function newRestaurant($atributtes)
     {
         return Restaurant::factory()->create($atributtes);
     }
 
-    public function updateRestaurant($id, $attributes)
+    public static function updateRestaurant($id, $attributes)
     {
         $restaurant = Restaurant::findOrFail($id);
         $restaurant->fill($attributes);

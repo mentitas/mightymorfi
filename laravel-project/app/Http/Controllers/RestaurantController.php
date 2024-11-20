@@ -34,7 +34,7 @@ class RestaurantController extends Controller
         'tables'    => $request->input('tables'),
         'timetable' => $request->input('timetable'),
         'logo'      => $request->input('logo')
-        ]
+        ];
 
         Restaurant::updateRestaurant($restaurantId, $attributes);
         return Redirect::route('restaurant');
