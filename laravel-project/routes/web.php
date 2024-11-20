@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
     //Rutas para ver los restaurantes
     Route::get('/restaurant',           [RestaurantController::class, 'viewList'])->name('restaurant');
     Route::post('/restaurant',          [RestaurantController::class, 'createRestaurant']);
+    Route::delete('/restaurant/{id}',      [RestaurantController::class, 'delete'])->name('restaurant.delete');
     Route::get('/restaurant/create',    [RestaurantController::class, 'viewCreateForm']);
     Route::get('/restaurant/{id}',      [RestaurantController::class, 'viewOrders'])->name('restaurantById');
     Route::get('/restaurant/edit/{id}', [RestaurantController::class, 'editRestaurant'])->name('restaurantById');

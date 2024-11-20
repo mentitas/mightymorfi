@@ -1,7 +1,8 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import RestaurantManagement from './RestaurantManagement.jsx';
-import { Link, useForm, usePage } from '@inertiajs/react';
+import { router, Link, useForm, usePage } from '@inertiajs/react';
+import DangerButton from '@/Components/DangerButton';
 import SecondaryButton from '@/Components/SecondaryButton.jsx';
 import { useEffect, useState, useRef } from 'react';
 
@@ -10,6 +11,10 @@ export default function RestaurantList() {
     
     const user        = usePage().props.auth.user;
     const restaurants = usePage().props.restaurants;
+
+    const deleteRestaurant = (restaurantId) => {
+        router.visit('/restaurant/'+restaurantId, {method: 'delete'});
+    };
 
     return (
         <AuthenticatedLayout
@@ -29,21 +34,24 @@ export default function RestaurantList() {
                             {/* Chequeo de si el usuario tiene un restaurante */}
                             {restaurants ? (
                                 restaurants.map((restaurant) => (
-                                    <li key={restaurant.id}>
-                                        <div className = "text-xl font-semibold leading-tight text-gray-800 pb-5">
-                                            <p>{restaurant.name}</p>
-                                            <SecondaryButton onClick={() => window.location.href = '/restaurant/' + restaurant.id}>
-                                                Ver pedidos
-                                            </SecondaryButton>
-                                            <SecondaryButton onClick={() => window.location.href = '/restaurant/edit/' + restaurant.id} >
-                                                 Editar
-                                            </SecondaryButton>
-                                            <SecondaryButton onClick={() => window.location.href = '/restaurant/qr/' + restaurant.id} >
-                                                 Códigos QR
-                                            </SecondaryButton>                            
-                                            <SecondaryButton>
-                                                Eliminar
-                                            </SecondaryButton>
+                                    <li key={restaurant.id} className="order-item p-4 mb-4 border rounded-lg">
+                                    <p>{restaurant.name}</p>
+                                        <div className="mt-1 flex justify-between w-full">
+                                            <div className="flex space-x-r">
+                                                <SecondaryButton onClick={() => window.location.href = '/restaurant/' + restaurant.id}>
+                                                    Ver pedidos
+                                                </SecondaryButton>
+                                                <SecondaryButton onClick={() => window.location.href = '/restaurant/edit/' + restaurant.id} >
+                                                     Editar
+                                                </SecondaryButton>
+                                                <SecondaryButton onClick={() => window.location.href = '/restaurant/qr/' + restaurant.id} >
+                                                     Códigos QR
+                                                </SecondaryButton>   
+                                            </div>
+                                            <DangerButton onClick={() => deleteRestaurant(restaurant.id)}>
+                                                    Eliminar
+                                            </DangerButton>
+
                                         </div>
                                     </li>
                                 ))

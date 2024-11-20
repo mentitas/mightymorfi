@@ -15,7 +15,7 @@ export default function QR({content}) {
                 {qrs.map((qr, index) => (
                     <div key={index} className="order-item p-4 mb-4 border rounded-lg">
                         <p> QR de la mesa {index+1}. </p>
-                        <img src={qr} alt="QR Code" />
+                        <img src={qr} alt="Código QR para la mesa {index+1}" />
                     </div>
                 ))}
 
@@ -25,7 +25,6 @@ export default function QR({content}) {
             )} 
           
         </div>
-
 
     );
 }

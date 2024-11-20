@@ -94,6 +94,12 @@ class RestaurantController extends Controller
         ]);
     }
 
-    
 
+    public function delete(Request $request, $restaurantId): RedirectResponse
+    {   
+        $restaurant = Restaurant::findOrFail($restaurantId);
+        $restaurant->delete();
+
+        return back();
+    }
 }

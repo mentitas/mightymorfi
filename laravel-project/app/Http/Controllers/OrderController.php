@@ -41,7 +41,7 @@ class OrderController extends Controller
         $order->save();
 
         $restaurantId = $order->restaurant;
-        return to_route('restaurantById', ['id' => $restaurantId]); // Se rompe
+        return back();
     }
 
     public function store(Request $request): RedirectResponse
@@ -60,9 +60,8 @@ class OrderController extends Controller
     public function delete(Request $request, $orderId): RedirectResponse
     {
         $order = Order::findOrFail($orderId);
-        $restaurantId = $order->restaurant;
         $order->delete();
 
-        return to_route('restaurantById', ['id' => $restaurantId]); // Se rompe
+        return back();
     }
 }
