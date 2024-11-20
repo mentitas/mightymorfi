@@ -1,10 +1,11 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
-import ViewOrders from './Partials/ViewOrders.jsx';
 import { Link, useForm, usePage } from '@inertiajs/react';
+import ViewOrders from './Partials/ViewOrders.jsx';
 
 
 export default function RestaurantOrders() {
+    
     const restaurant = usePage().props.restaurant
 
     return (
@@ -17,6 +18,7 @@ export default function RestaurantOrders() {
                 </h2>
             }
         >
+        
         <Head title="Comandas" />
 
         <div className="py-12">

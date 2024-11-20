@@ -51,7 +51,7 @@ class restaurant extends Model
 
     public static function getInfo($id)
     {
-        return Order::findOrFail($id);
+        return Restaurant::findOrFail($id);
     }
 
     public static function newRestaurant($atributtes)
@@ -67,7 +67,6 @@ class restaurant extends Model
 
         return $restaurant->id;
     }
-
 
 
     public function locations($id)

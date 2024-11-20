@@ -1,11 +1,11 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
-import ViewOrders from './Partials/ViewOrders.jsx';
-import UpdateRestaurant from './Partials/UpdateRestaurant.jsx';
 import { Link, useForm, usePage } from '@inertiajs/react';
+import UpdateRestaurant from './Partials/UpdateRestaurant.jsx';
 
 
 export default function RestaurantOrders() {
+    
     const restaurant = usePage().props.restaurant
 
     return (

@@ -7,8 +7,7 @@ import { useEffect, useState, useRef } from 'react';
 export default function ViewOrders() {
 
     // var orders = usePage().props.orders;
-    const orders = usePage().props.orders
-    const restaurant = usePage().props.restaurant
+    const { orders , restaurant} = usePage().props
     
     const { data, setData, patch } = useForm();
 
@@ -64,7 +63,7 @@ export default function ViewOrders() {
                                 </PrimaryButton>
                             </div>
                             <DangerButton onClick={() => deleteOrder(order.id)}>
-                                Borrar comanda
+                                Eliminar
                             </DangerButton>
                         </div>
                     </div>

@@ -13,7 +13,7 @@ import CreateOrderAtTable from './CreateOrderAtTable.jsx'
 export default function Order() {
 
     const { canOrder } = usePage().props;
-
+    // {canOrder ? ( <CreateOrderAtTable /> ) : ( <> </> )}
     return (
         <AuthenticatedLayout
             header={

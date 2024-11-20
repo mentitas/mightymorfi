@@ -3,18 +3,8 @@ import { useEffect, useState, useRef } from 'react';
 
 export default function ViewOrders() {
 
-    const user = usePage().props.auth.user;
-
-    const [orders, setOrders] = useState([]);
-    
-    useEffect(() => {
-        // Fetch user's orders from backend
-        fetch('/api/orders/user/' + user.id)
-            .then((response) => response.json())
-            .then((data) => setOrders(data))
-            .catch((error) => console.error('Error fetching orders:', error));
-
-    }, []);
+    const user   = usePage().props.auth.user;
+    const orders = usePage().props.orders;
 
     return (
         <>
