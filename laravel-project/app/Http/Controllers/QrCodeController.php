@@ -20,7 +20,7 @@ class QrCodeController extends Controller
             $qrCodes = [];
 
             for ($table = 1; $table <= $tables; $table++) {
-                $url = 'http://127.0.0.1:8000/order/' . $id . '/' . $table; // Cambiar URL!!!
+                $url = 'http://127.0.0.1:8000/order/' . $id . '/' . $table; // TODO: Cambiar URL!!!
                 $qrCode = QrCode::format('png')->size(200)->generate($url);
                 $qrCodes[] = 'data:image/png;base64,' . base64_encode($qrCode);
                 

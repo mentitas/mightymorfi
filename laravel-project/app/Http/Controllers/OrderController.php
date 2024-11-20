@@ -24,14 +24,38 @@ class OrderController extends Controller
     }
 
     public function ordersFromUser($userId)
-    {
+    {   
         $orders = Order::getBy('user_id', $userId);
         return response()->json($orders);
     }
 
+    //Render pagina lista ordenes
+    public function viewOrdersFromUser(Request $request): Response
+    {   
+        $orders = Order::getBy('user_id', $request->user()->id);
+        return Inertia::render('Order/Order', [
+            'canOrder' => false,
+            'orders'   => $orders,
+        ]);
+    }
+
+    //Render pagina lista ordenes
+    public function viewOrdersFromUserAtRestaurant(Request $request, $restaurantId, $table): Response
+    {   
+        $orders = Order::getBy('user_id', $request->user()->id);
+        $restaurant = Restaurant::getInfo($restaurantId);
+
+        return Inertia::render('Order/Order', [
+            'canOrder'   => true,
+            'orders'     => $orders,
+            'restaurant' => $restaurant,
+            'table'      => $table,
+        ]);
+    }
+
+
     public function updateStatus(Request $request, $orderId, $status): RedirectResponse
     {
-        $restaurantId = Order::franchise($orderId);
         Order::updateOrder($orderId, $status);        
         return back();
     }

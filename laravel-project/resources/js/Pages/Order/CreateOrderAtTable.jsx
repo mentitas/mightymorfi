@@ -10,25 +10,7 @@ import OrderForm from './OrderForm.jsx';
 export default function CreateOrderAtTable() {
 
     const user = usePage().props.auth.user;
-    const { restaurantId, table } = usePage().props;
-
-    const [restaurant, setRestaurant] = useState([]);
-    const [orders, setOrders]         = useState([]);
-    
-    useEffect(() => {
-        // Fetch restaurant's info from the backend
-        fetch('/api/restaurants/' + restaurantId)
-            .then((response) => response.json())
-            .then((data) => setRestaurant(data))
-            .catch((error) => console.error('Error fetching restaurant:', error));
-
-        // Fetch user's orders from backend
-        fetch('/api/orders/user/' + user.id)
-            .then((response) => response.json())
-            .then((data) => setOrders(data))
-            .catch((error) => console.error('Error fetching orders:', error));
-
-    }, []);
+    const { restaurant, table, orders } = usePage().props;
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -42,7 +24,6 @@ export default function CreateOrderAtTable() {
 
     return (
     
-
         <>   
             <Head title="Pedidos" />
                <PrimaryButton

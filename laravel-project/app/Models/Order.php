@@ -36,14 +36,13 @@ class Order extends Model
         ->get();
     } 
 
-    public function getBy($foreignKey, $id)
-    {
+    public static function getBy($foreignKey, $id)
+    {   
         $foreignKey = match ($foreignKey) {
             'restaurant'=> 'restaurant',
-            'user'=>'user_id'
+            'user_id'      => 'user_id'
         };
-
-        return $this::where($foreignKey, $id)
+        return self::where($foreignKey, $id)
         ->select('restaurant', 'table', 'content', 'status', 'id')
         ->get();
     }
@@ -53,12 +52,12 @@ class Order extends Model
         return Order::findOrFail($id);
     }
 
-    public function newOrder($atributtes)
+    public static function newOrder($atributtes)
     {
         return Order::create($atributtes);
     }
 
-    public function updateOrder($id, $status)
+    public static function updateOrder($id, $status)
     {
         $order = Order::findOrFail($id);
         $order->status = $status;
@@ -67,7 +66,7 @@ class Order extends Model
         return $order->status;
     }
 
-    public function rejectOrder($id)
+    public static function rejectOrder($id)
     {
         $order = Order::findOrFail($id);
         $order->delete();
