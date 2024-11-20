@@ -17,8 +17,8 @@ class restaurant extends Model
      * @var array<int, string>
      */
 
-    // Todo: quizás castear los tipos de cada coso
 
+     // Todo: quizás castear los tipos de cada coso
     protected $fillable = [
         'name',
         'owner',
@@ -31,9 +31,54 @@ class restaurant extends Model
         'longitude'
     ];
 
+
+    public function getAll()
+    {
+        return $this::select('restaurant', 'table', 'content','status')
+        ->get();
+    } 
+
+    public function getByOwner($id)
+    {
+        return Restaurant::where('owner_id', $id)->get();
+        //->select('restaurant', 'table', 'content', 'status', 'id')
+    }
+
+    public function getByName($name)
+    {
+        return Restaurant::where('name', $name)->get();
+    }
+
+    public function getInfo($id)
+    {
+        return Order::findOrFail($id);
+    }
+
+    public function newRestaurant($atributtes)
+    {
+        return Restaurant::factory()->create($atributtes);
+    }
+
+    public function updateRestaurant($id, $attributes)
+    {
+        $restaurant = Restaurant::findOrFail($id);
+        $restaurant->fill($attributes);
+        $restaurant->save();
+
+        return $restaurant->id;
+    }
+
+
+
+    public function locations($id)
+    {
+        return $this->select('name', 'latitude', 'longitude','horarios','menu')->get();
+    }
+
+
     public function owner()
     {
-        return $this->belongsTo(User::class, 'owner_id');
+        return $this->belongsTo(User::class, 'owner');
     }
 
     /**

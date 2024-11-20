@@ -11,57 +11,53 @@ use Inertia\Response;
 class OrderController extends Controller
 {
 
-    // ¡Cambiar! La llamada a la base de datos debe estar adentro del modelo Order
     public function orders()
     {   
-        $orders = Order::select('restaurant', 'table', 'content','status')->get();
+        $orders = Order::getAll();
         return response()->json($orders);
     }
 
-    // Me copio de locations() :3
     public function ordersFromRestaurant($restaurantId)
     {   
-        $orders = Order::where('restaurant', $restaurantId)
-               ->select('restaurant', 'table', 'content', 'status', 'id')
-               ->get();
+        $orders = Order::getBy('restaurant', $restaurantId);
         return response()->json($orders);
     }
 
     public function ordersFromUser($userId)
     {
-        $orders = Order::where('user_id', $userId)->get();
+        $orders = Order::getBy('user_id', $userId);
         return response()->json($orders);
     }
 
     public function updateStatus(Request $request, $orderId, $status): RedirectResponse
     {
-
-        $order = Order::findOrFail($orderId);
-        $order->status = $status;
-        $order->save();
-
-        $restaurantId = $order->restaurant;
+        $restaurantId = Order::franchise($orderId);
+        Order::updateOrder($orderId, $status);        
         return back();
     }
 
     public function store(Request $request): RedirectResponse
     {
-        $order = Order::create([
+        $atributtes = [
             'restaurant' => $request["restaurant"],
             'table'      => $request["table"],
             'content'    => $request["content"],
             'status'     => $request["status"],
             'user_id'    => $request["user_id"],
-        ]);
+        ];
 
+        $orderId = Order::newOrder($atributtes);
         return Redirect::route('order');
     }
 
     public function delete(Request $request, $orderId): RedirectResponse
     {
-        $order = Order::findOrFail($orderId);
-        $order->delete();
-
+        //$order = Order::findOrder($orderId);
+        //$restaurantId = $order->restaurant;
+        
+        Order::rejectOrder($orderId);
+        
+        //return to_route('restaurantById', ['id' => $restaurantId]);
         return back();
     }
 }

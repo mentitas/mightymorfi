@@ -6,7 +6,7 @@ use App\Models\Restaurant;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class RestaurantUpdateRequest extends FormRequest
+class OrderUpdateRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.

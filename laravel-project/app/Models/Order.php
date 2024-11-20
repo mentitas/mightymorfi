@@ -28,8 +28,62 @@ class Order extends Model
         'user_id'
     ];
 
-        public function owner()
-        {
-            return $this->belongsTo(User::class, 'owner_id');
-        }
+    //protected $hidden = [];
+
+    public function getAll()
+    {
+        return $this::select('restaurant', 'table', 'content','status')
+        ->get();
+    } 
+
+    public function getBy($foreignKey, $id)
+    {
+        $foreignKey = match ($foreignKey) {
+            'restaurant'=> 'restaurant',
+            'user'=>'user_id'
+        };
+
+        return $this::where($foreignKey, $id)
+        ->select('restaurant', 'table', 'content', 'status', 'id')
+        ->get();
     }
+
+    public function findOrder($id)
+    {
+        return Order::findOrFail($id);
+    }
+
+    public function newOrder($atributtes)
+    {
+        return Order::create($atributtes);
+    }
+
+    public function updateOrder($id, $status)
+    {
+        $order = Order::findOrFail($id);
+        $order->status = $status;
+        $order->save();
+
+        return $order->status;
+    }
+
+    public function rejectOrder($id)
+    {
+        $order = Order::findOrFail($id);
+        $order->delete();
+    }
+
+
+    public function customer()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+
+    public function franchise($id)
+    {
+        return $this->belongsTo(restaurant::class, 'restaurant');
+    }
+
+
+}

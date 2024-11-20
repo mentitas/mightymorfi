@@ -12,37 +12,37 @@ use Inertia\Response;
 class RestaurantController extends Controller
 {
 
-    // ¡Cambiar! La llamada a la base de datos debe estar adentro del modelo Restaurant 
     public function locations()
     {
-        $restaurants = Restaurant::select('name', 'latitude', 'longitude','timetable','menu')->get();
+        $restaurants = Restaurant::location();
         return response()->json($restaurants);
     }
 
     public function getRestaurantInfo(Request $request, $restaurantId)
     {
-        $restaurant = Restaurant::findOrFail($restaurantId);
+        $restaurant = Restaurant::getInfo($restaurantId);
         return response()->json($restaurant);
     }
 
-    public function update(Request $request, $restaurantId): RedirectResponse
-    {   
-        $restaurant = Restaurant::findOrFail($restaurantId);
-        $restaurant->name      = $request->input('name'); 
-        $restaurant->contact   = $request->input('contact'); 
-        $restaurant->address   = $request->input('address'); 
-        $restaurant->menu      = $request->input('menu'); 
-        $restaurant->tables    = $request->input('tables');
-        $restaurant->timetable = $request->input('timetable');
-        $restaurant->logo      = $request->input('logo');
-        
-        $restaurant->save();
+    public function update(RestaurantUpdateRequest $request, $restaurantId): RedirectResponse
+    {
+        //$attributes = $request->validated();
+        $attributes = [ 'name' => $request->input('name'), 
+        'contact'   => $request->input('contact'), 
+        'address'   => $request->input('address'), 
+        'menu'      => $request->input('menu'), 
+        'tables'    => $request->input('tables'),
+        'timetable' => $request->input('timetable'),
+        'logo'      => $request->input('logo')
+        ]
 
+        Restaurant::updateRestaurant($restaurantId, $attributes);
         return Redirect::route('restaurant');
     }
 
-    public function createRestaurant(Request $request){
-        Restaurant::factory()->create([
+    public function createRestaurant(Request $request)
+    {        
+        $atributtes = [
             'name'=> $request->input('data')['name'],
             'owner_id' => $request->user(),
             'address' => $request->input('data')['address'],
@@ -52,7 +52,8 @@ class RestaurantController extends Controller
             'contact' => $request->input('data')['contact'],
             'latitude' => $request->input('data')['latitude'],
             'longitude' => $request->input('data')['longitude']
-        ]);
+        ];
+        Restaurant::newRestaurant($atributtes);    
         return Redirect::route('restaurant');
     }
 
@@ -67,9 +68,10 @@ class RestaurantController extends Controller
 
     //Render pagina ordenes de un restaurant
     public function viewOrders(Request $request, $restaurantId): Response
-    {   
-        $restaurant = Restaurant::where('owner_id', $request->user()->id)->findOrFail($restaurantId);
-        $orders = Order::where('restaurant',$restaurantId)->select('restaurant', 'table', 'content', 'status', 'id')->get();
+    {
+        $restaurant = Restaurant::findOrFail($restaurantId);
+        $orders = Order::getBy('restaurant', $restaurantId);
+        
         return Inertia::render('Restaurant/RestaurantOrders', [
             'restaurant' => $restaurant,
             'orders' => $orders
@@ -88,7 +90,7 @@ class RestaurantController extends Controller
     //Render pagina lista restaurants
     public function viewList(Request $request): Response
     {
-        $restaurants = Restaurant::where('owner_id', $request->user()->id)->get();
+        $restaurants = Restaurant::getByOwner($request->user()->id);
         return Inertia::render('Restaurant/RestaurantList', [
             'restaurants' => $restaurants
         ]);
@@ -97,8 +99,10 @@ class RestaurantController extends Controller
 
     public function delete(Request $request, $restaurantId): RedirectResponse
     {   
-        $restaurant = Restaurant::findOrFail($restaurantId);
-        $restaurant->delete();
+        $restaurant = Restaurant::close($restaurantId);
+        
+        //Restaurant::findOrFail($restaurantId);
+        //$restaurant->delete();
 
         return back();
     }
