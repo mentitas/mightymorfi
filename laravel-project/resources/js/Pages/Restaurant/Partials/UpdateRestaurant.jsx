@@ -5,8 +5,8 @@ import TextInput from '@/Components/TextInput';
 import { Transition } from '@headlessui/react';
 import { Link, useForm, usePage } from '@inertiajs/react';
 
-export default function UpdateRestaurant({ restaurant }) {
-
+export default function UpdateRestaurant() {
+    const restaurant = usePage().props.restaurant
     const { data, setData, patch, errors, processing, recentlySuccessful } =
         useForm({
             name:      restaurant.name,

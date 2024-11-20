@@ -37,7 +37,10 @@ export default function RestaurantList() {
                                             </SecondaryButton>
                                             <SecondaryButton onClick={() => window.location.href = '/restaurant/edit/' + restaurant.id} >
                                                  Editar
-                                            </SecondaryButton>              
+                                            </SecondaryButton>
+                                            <SecondaryButton onClick={() => window.location.href = '/restaurant/qr/' + restaurant.id} >
+                                                 Códigos QR
+                                            </SecondaryButton>                            
                                             <SecondaryButton>
                                                 Eliminar
                                             </SecondaryButton>
