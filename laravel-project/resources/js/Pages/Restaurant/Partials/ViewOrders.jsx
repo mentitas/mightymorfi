@@ -4,11 +4,12 @@ import { Transition } from '@headlessui/react';
 import { router, useForm, usePage } from '@inertiajs/react';
 import { useEffect, useState, useRef } from 'react';
 
-
 export default function ViewOrders() {
 
-    var orders = usePage().props.orders;
-
+    // var orders = usePage().props.orders;
+    const orders = usePage().props.orders
+    const restaurant = usePage().props.restaurant
+    
     const { data, setData, patch } = useForm();
 
     const changeOrderStatus = (orderId, status) => {

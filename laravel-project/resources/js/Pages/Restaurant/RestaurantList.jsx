@@ -8,7 +8,7 @@ import { useEffect, useState, useRef } from 'react';
 
 export default function RestaurantList() {
     
-    const user = usePage().props.auth.user;
+    const user        = usePage().props.auth.user;
     const restaurants = usePage().props.restaurants;
 
     return (
@@ -30,13 +30,13 @@ export default function RestaurantList() {
                             {restaurants ? (
                                 restaurants.map((restaurant) => (
                                     <li key={restaurant.id}>
-                                        <div className = "text-xl font-semibold leading-tight text-gray-800 pb-5 border-solid border-2 border-sky-500">
+                                        <div className = "text-xl font-semibold leading-tight text-gray-800 pb-5">
                                             <p>{restaurant.name}</p>
                                             <SecondaryButton>
                                                 Editar
                                             </SecondaryButton>
                                             <SecondaryButton>
-                                                <a href={'/restaurant/'+restaurant.id}>Ver pedidos</a>
+                                                <a href={'/restaurant/'+restaurant.id}> Ver pedidos</a>
                                             </SecondaryButton>
                                             <SecondaryButton>
                                                 Eliminar

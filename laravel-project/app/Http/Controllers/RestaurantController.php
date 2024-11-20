@@ -60,8 +60,8 @@ class RestaurantController extends Controller
 
     //Render pagina ordenes de un restaurant
     public function viewOrders(Request $request, $restaurantId): Response
-    {
-        $restaurant = Restaurant::findOrFail($restaurantId);
+    {   
+        $restaurant = Restaurant::where('owner_id', $request->user()->id)->findOrFail($restaurantId);
         $orders = Order::where('restaurant',$restaurantId)->select('restaurant', 'table', 'content', 'status', 'id')->get();
         return Inertia::render('Restaurant/RestaurantOrders', [
             'restaurant' => $restaurant,

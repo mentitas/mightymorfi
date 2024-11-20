@@ -7,15 +7,22 @@ use Inertia\Inertia;
 
 
 // ***mapa y rutas sin autenticar***
+// Pagina inicial: muestra el mapa
 Route::get('/', [MapController::class, 'view']);
 
-// Estas rutas hay que eliminarlas y pasar los datos por medio de Inertia usando props
+// ***Rutas para obtener recursos de la base de datos**/
+// Dado un restaurant id, devuelve la info del restaurant
 Route::get('/api/restaurants/{restaurantId}',       [RestaurantController::class,  'getRestaurantInfo']);
+// Dado un restaurant id, devuelve las comandas del restaurant.
 Route::get('/api/orders/restaurant/{restaurantId}', [OrderController::class,       'ordersFromRestaurant']);
+// Dado un user id, devuelve los pedidos del usuarix.
 Route::get('/api/orders/user/{userId}',             [OrderController::class,       'ordersFromUser']);
 
+
 // ***restaurant***
-// Estas rutas hay que ver en que se usan ????
+
+// Ruta de un QR. Página que muestra los pedidos activos del usuarix
+// Y ADEMÁS te deja hacer un pedido en el restaurant y table indicado.
 Route::get('/order/{restaurantId}/{table}', function ($restaurantId, $table) {
     return Inertia::render('Order/Order', [
         'canOrder' => true,
@@ -24,14 +31,14 @@ Route::get('/order/{restaurantId}/{table}', function ($restaurantId, $table) {
     ]); 
 })->middleware(['auth', 'verified'])->name('order');
 
-//Esto seria para ver los pedidos desde la vista Restaurant o desde la vista Cliente?
+// Página que muestra los pedidos activos del usuarix.
 Route::get('/order/', function () {
     return Inertia::render('Order/Order', [
-        'canOrder' => true
+        'canOrder' => false,
     ]); 
 })->middleware(['auth', 'verified'])->name('order');
 
-// GRUPO DE RUTAS AUTENTICADAS. SON LAS QUE USARIAN LOS DUENIOS DEL LOCAL
+// GRUPO DE RUTAS AUTENTICADAS. SON LAS QUE USARIAN LOS DUEÑOS DEL LOCAL
 Route::middleware('auth')->group(function () {
     //Rutas para ver el perfil del usuario
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -39,11 +46,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     //Rutas para ver los restaurantes
-    Route::get('/restaurant', [RestaurantController::class , 'viewList'])->name('restaurant');
-    Route::post('/restaurant', [RestaurantController::class, 'createRestaurant']);
+    Route::get('/restaurant',        [RestaurantController::class, 'viewList'])->name('restaurant');
+    Route::post('/restaurant',       [RestaurantController::class, 'createRestaurant']);
     Route::get('/restaurant/create', [RestaurantController::class, 'viewCreateForm']);
-    Route::get('/restaurant/{id}',  [RestaurantController::class, 'viewOrders'])->name('restaurantById');
-    Route::patch('/restaurant/{id}',  [RestaurantController::class, 'update'])->name('restaurant.update');
+    Route::get('/restaurant/{id}',   [RestaurantController::class, 'viewOrders'])->name('restaurantById'); // Se rompe, y le muestra la info del restaurant a todxs.
+    Route::patch('/restaurant/{id}', [RestaurantController::class, 'update'])->name('restaurant.update');
 
     //Rutas para ver los pedidos
     Route::patch('/order/{id}/{status}', [OrderController::class, 'updateStatus'])->name('order.updateStatus');

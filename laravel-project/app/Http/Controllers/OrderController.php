@@ -41,7 +41,7 @@ class OrderController extends Controller
         $order->save();
 
         $restaurantId = $order->restaurant;
-        return to_route('restaurantById', ['id' => $restaurantId]);
+        return to_route('restaurantById', ['id' => $restaurantId]); // Se rompe
     }
 
     public function store(Request $request): RedirectResponse
@@ -63,6 +63,6 @@ class OrderController extends Controller
         $restaurantId = $order->restaurant;
         $order->delete();
 
-        return to_route('restaurantById', ['id' => $restaurantId]);
+        return to_route('restaurantById', ['id' => $restaurantId]); // Se rompe
     }
 }
