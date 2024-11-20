@@ -32,12 +32,12 @@ export default function RestaurantList() {
                                     <li key={restaurant.id}>
                                         <div className = "text-xl font-semibold leading-tight text-gray-800 pb-5">
                                             <p>{restaurant.name}</p>
-                                            <SecondaryButton>
-                                                Editar
+                                            <SecondaryButton onClick={() => window.location.href = '/restaurant/' + restaurant.id}>
+                                                Ver pedidos
                                             </SecondaryButton>
-                                            <SecondaryButton>
-                                                <a href={'/restaurant/'+restaurant.id}> Ver pedidos</a>
-                                            </SecondaryButton>
+                                            <SecondaryButton onClick={() => window.location.href = '/restaurant/edit/' + restaurant.id} >
+                                                 Editar
+                                            </SecondaryButton>              
                                             <SecondaryButton>
                                                 Eliminar
                                             </SecondaryButton>

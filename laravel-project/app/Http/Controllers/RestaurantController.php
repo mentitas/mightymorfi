@@ -15,7 +15,7 @@ class RestaurantController extends Controller
     // ¡Cambiar! La llamada a la base de datos debe estar adentro del modelo Restaurant 
     public function locations()
     {
-        $restaurants = Restaurant::select('name', 'latitude', 'longitude','horarios','menu')->get();
+        $restaurants = Restaurant::select('name', 'latitude', 'longitude','timetable','menu')->get();
         return response()->json($restaurants);
     }
 
@@ -25,10 +25,17 @@ class RestaurantController extends Controller
         return response()->json($restaurant);
     }
 
-    public function update(RestaurantUpdateRequest $request, $restaurantId): RedirectResponse
-    {
+    public function update(Request $request, $restaurantId): RedirectResponse
+    {   
         $restaurant = Restaurant::findOrFail($restaurantId);
-        $restaurant->fill($request->validated());
+        $restaurant->name      = $request->input('name'); 
+        $restaurant->contact   = $request->input('contact'); 
+        $restaurant->address   = $request->input('address'); 
+        $restaurant->menu      = $request->input('menu'); 
+        $restaurant->tables    = $request->input('tables');
+        $restaurant->timetable = $request->input('timetable');
+        $restaurant->logo      = $request->input('logo');
+        
         $restaurant->save();
 
         return Redirect::route('restaurant');
@@ -40,7 +47,7 @@ class RestaurantController extends Controller
             'owner_id' => $request->user(),
             'address' => $request->input('data')['address'],
             'menu' => $request->input('data')['menu'],
-            'tables' => $request->input('data')['menu'],
+            'tables' => $request->input('data')['tables'],
             'timetable' => $request->input('data')['timetable'],
             'contact' => $request->input('data')['contact'],
             'latitude' => $request->input('data')['latitude'],
@@ -66,6 +73,15 @@ class RestaurantController extends Controller
         return Inertia::render('Restaurant/RestaurantOrders', [
             'restaurant' => $restaurant,
             'orders' => $orders
+        ]);
+    }
+
+    //Render pagina ordenes de un restaurant
+    public function editRestaurant(Request $request, $restaurantId): Response
+    {   
+        $restaurant = Restaurant::where('owner_id', $request->user()->id)->findOrFail($restaurantId);
+        return Inertia::render('Restaurant/RestaurantManagement', [
+            'restaurant' => $restaurant,
         ]);
     }
 

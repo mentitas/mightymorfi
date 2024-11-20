@@ -14,6 +14,7 @@ export default function CreateRestaurantForm() {
             address:   "",
             latitude:  "",
             longitude: "",
+            tables:    "",
             menu:      "",
             timetable: "",
             logo:      ""
@@ -118,6 +119,19 @@ export default function CreateRestaurantForm() {
                     <InputError className="mt-2" message={errors.horarios} />
                 </div>
 
+                <div>
+                    <InputLabel value="Cantidad de mesas" />
+                    <TextInput
+                        id="tables"
+                        className="mt-1 block w-full"
+                        value={data.tables}
+                        onChange={(e) => setData('tables', e.target.value)}
+                        required
+                        autoComplete="tables"
+                    />
+                    <InputError className="mt-2" message={errors.menu} />
+                </div>
+                
                 <div>
                     <InputLabel value="Menu URL" />
                     <TextInput

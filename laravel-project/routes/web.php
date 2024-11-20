@@ -46,11 +46,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     //Rutas para ver los restaurantes
-    Route::get('/restaurant',        [RestaurantController::class, 'viewList'])->name('restaurant');
-    Route::post('/restaurant',       [RestaurantController::class, 'createRestaurant']);
-    Route::get('/restaurant/create', [RestaurantController::class, 'viewCreateForm']);
-    Route::get('/restaurant/{id}',   [RestaurantController::class, 'viewOrders'])->name('restaurantById'); // Se rompe, y le muestra la info del restaurant a todxs.
-    Route::patch('/restaurant/{id}', [RestaurantController::class, 'update'])->name('restaurant.update');
+    Route::get('/restaurant',           [RestaurantController::class, 'viewList'])->name('restaurant');
+    Route::post('/restaurant',          [RestaurantController::class, 'createRestaurant']);
+    Route::get('/restaurant/create',    [RestaurantController::class, 'viewCreateForm']);
+    Route::get('/restaurant/{id}',      [RestaurantController::class, 'viewOrders'])->name('restaurantById');
+    Route::get('/restaurant/edit/{id}', [RestaurantController::class, 'editRestaurant'])->name('restaurantById');
+    Route::patch('/restaurant/{id}',    [RestaurantController::class, 'update'])->name('restaurant.update');
 
     //Rutas para ver los pedidos
     Route::patch('/order/{id}/{status}', [OrderController::class, 'updateStatus'])->name('order.updateStatus');

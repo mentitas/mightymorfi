@@ -5,7 +5,7 @@ import TextInput from '@/Components/TextInput';
 import { Transition } from '@headlessui/react';
 import { Link, useForm, usePage } from '@inertiajs/react';
 
-export default function UpdateRestaurantName({ restaurant }) {
+export default function UpdateRestaurant({ restaurant }) {
 
     const { data, setData, patch, errors, processing, recentlySuccessful } =
         useForm({
@@ -13,6 +13,7 @@ export default function UpdateRestaurantName({ restaurant }) {
             contact:   restaurant.contact,
             address:   restaurant.address,
             menu:      restaurant.menu,
+            tables:    restaurant.tables,
             timetable: restaurant.timetable,
             logo:      restaurant.logo,
         });
@@ -86,6 +87,19 @@ export default function UpdateRestaurantName({ restaurant }) {
                         autoComplete="horarios"
                     />
                     <InputError className="mt-2" message={errors.horarios} />
+                </div>
+
+                <div>
+                    <InputLabel value="Cantidad de mesas" />
+                    <TextInput
+                        id="tables"
+                        className="mt-1 block w-full"
+                        value={data.tables}
+                        onChange={(e) => setData('tables', e.target.value)}
+                        required
+                        autoComplete="tables"
+                    />
+                    <InputError className="mt-2" message={errors.tables} />
                 </div>
 
                 <div>
