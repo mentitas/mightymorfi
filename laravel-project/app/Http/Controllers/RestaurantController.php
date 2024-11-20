@@ -12,30 +12,28 @@ use Inertia\Response;
 class RestaurantController extends Controller
 {
 
-    // ¡Cambiar! La llamada a la base de datos debe estar adentro del modelo Restaurant 
     public function locations()
     {
-        $restaurants = Restaurant::select('name', 'latitude', 'longitude','horarios','menu')->get();
+        $restaurants = Restaurant::location();
         return response()->json($restaurants);
     }
 
     public function getRestaurantInfo(Request $request, $restaurantId)
     {
-        $restaurant = Restaurant::findOrFail($restaurantId);
+        $restaurant = Restaurant::getInfo($restaurantId);
         return response()->json($restaurant);
     }
 
     public function update(RestaurantUpdateRequest $request, $restaurantId): RedirectResponse
     {
-        $restaurant = Restaurant::findOrFail($restaurantId);
-        $restaurant->fill($request->validated());
-        $restaurant->save();
-
+        $attributes = $request->validated();
+        Restaurant::updateRestaurant($restaurantId, $attributes);
         return Redirect::route('restaurant');
     }
 
-    public function createRestaurant(Request $request){
-        Restaurant::factory()->create([
+    public function createRestaurant(Request $request)
+    {        
+        $atributtes = [
             'name'=> $request->input('data')['name'],
             'owner_id' => $request->user(),
             'address' => $request->input('data')['address'],
@@ -45,7 +43,8 @@ class RestaurantController extends Controller
             'contact' => $request->input('data')['contact'],
             'latitude' => $request->input('data')['latitude'],
             'longitude' => $request->input('data')['longitude']
-        ]);
+        ];
+        Restaurant::newRestaurant($atributtes);    
         return Redirect::route('restaurant');
     }
 
@@ -62,7 +61,8 @@ class RestaurantController extends Controller
     public function viewOrders(Request $request, $restaurantId): Response
     {
         $restaurant = Restaurant::findOrFail($restaurantId);
-        $orders = Order::where('restaurant',$restaurantId)->select('restaurant', 'table', 'content', 'status', 'id')->get();
+        $orders = Order::getBy('restaurant', $restaurantId);
+        
         return Inertia::render('Restaurant/RestaurantOrders', [
             'restaurant' => $restaurant,
             'orders' => $orders
@@ -72,12 +72,11 @@ class RestaurantController extends Controller
     //Render pagina lista restaurants
     public function viewList(Request $request): Response
     {
-        $restaurants = Restaurant::where('owner_id', $request->user()->id)->get();
+        $restaurants = Restaurant::getByOwner($request->user()->id);
         return Inertia::render('Restaurant/RestaurantList', [
             'restaurants' => $restaurants
         ]);
     }
-
     
 
 }
