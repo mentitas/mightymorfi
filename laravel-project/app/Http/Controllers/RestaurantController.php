@@ -34,6 +34,21 @@ class RestaurantController extends Controller
         return Redirect::route('restaurant');
     }
 
+    public function createRestaurant(Request $request){
+        Restaurant::factory()->create([
+            'name'=> $request->input('data')['name'],
+            'owner_id' => $request->user(),
+            'address' => $request->input('data')['address'],
+            'menu' => $request->input('data')['menu'],
+            'tables' => $request->input('data')['menu'],
+            'timetable' => $request->input('data')['timetable'],
+            'contact' => $request->input('data')['contact'],
+            'latitude' => $request->input('data')['latitude'],
+            'longitude' => $request->input('data')['longitude']
+        ]);
+        return Redirect::route('restaurant');
+    }
+
     //Render pagina creacion restaurant
     public function viewCreateForm(Request $request): Response
     {

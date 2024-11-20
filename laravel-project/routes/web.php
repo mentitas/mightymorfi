@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
 
     //Rutas para ver los restaurantes
     Route::get('/restaurant', [RestaurantController::class , 'viewList'])->name('restaurant');
+    Route::post('/restaurant', [RestaurantController::class, 'createRestaurant']);
     Route::get('/restaurant/create', [RestaurantController::class, 'viewCreateForm']);
     Route::get('/restaurant/{id}',  [RestaurantController::class, 'viewOrders'])->name('restaurantById');
     Route::patch('/restaurant/{id}',  [RestaurantController::class, 'update'])->name('restaurant.update');
