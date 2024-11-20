@@ -35,7 +35,13 @@ export default function RestaurantList() {
                             {restaurants ? (
                                 restaurants.map((restaurant) => (
                                     <li key={restaurant.id} className="order-item p-4 mb-4 border rounded-lg">
-                                    <p>{restaurant.name}</p>
+
+                                        <div className="flex">
+                                            <img src={restaurant.logo} width={75} height={75} />
+                                        </div>
+                                        
+                                        <p>{restaurant.name}</p>
+                                        
                                         <div className="mt-1 flex justify-between w-full">
                                             <div className="flex space-x-r">
                                                 <SecondaryButton onClick={() => window.location.href = '/restaurant/' + restaurant.id}>
