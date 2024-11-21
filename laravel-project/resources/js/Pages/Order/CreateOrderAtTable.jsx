@@ -44,12 +44,16 @@ export default function CreateOrderAtTable() {
                     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                         <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                             
-                            <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                                {mensajeDeHacerPedidoEn}
-                            </h2>
-            
-                            <p> Podés ver el menu en </p> <p>{restaurant.menu} </p>
-            
+                            <div className="flex">
+                                <img src={restaurant.logo}/>
+                                <div className="mx-10">
+                                <h2 className="text-xl font-semibold leading-tight text-gray-800">
+                                    {mensajeDeHacerPedidoEn}
+                                </h2>
+                                
+                                <p> Podés ver el menu en </p> <p>{restaurant.menu} </p>
+                                </div>
+                            </div>
                             <OrderForm />
                         </div>
                     </div>
