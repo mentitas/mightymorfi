@@ -70,9 +70,9 @@ class restaurant extends Model
     }
 
 
-    public function locations()
+    public static function locations()
     {
-        return $this->select('name', 'latitude', 'longitude','timetable','menu')->get();
+        return Restaurant::select('latitude', 'longitude', 'name', 'menu', 'timetable', 'id', 'logo')->get();
     }
 
 
