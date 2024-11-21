@@ -26,7 +26,7 @@ RUN apt-get install -y \
       --with-jpeg=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-enable gd \
-    && docker-php-ext-install imagick \
+    && pecl install imagick \
     && docker-php-ext-enable imagick \
     && rm -rf /tmp/*
 
