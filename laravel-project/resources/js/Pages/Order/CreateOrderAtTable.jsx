@@ -12,6 +12,12 @@ export default function CreateOrderAtTable() {
     const user = usePage().props.auth.user;
     const { restaurant, table, orders } = usePage().props;
 
+    if (table == "pickup") {
+        var mensajeDeHacerPedidoEn = "Hacer pedido pickup en el restaurant " + restaurant.name;
+    } else {
+        var mensajeDeHacerPedidoEn = "Hacer pedido en la mesa " + table + " del restaurant " + restaurant.name;        
+    }
+
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openModal = () => {
@@ -37,11 +43,12 @@ export default function CreateOrderAtTable() {
                 <div className="py-12">
                     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                         <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                            
                             <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                                Hacer pedido en la mesa {table} del restaurant {restaurant.name}.
+                                {mensajeDeHacerPedidoEn}
                             </h2>
             
-                            <p> Podés ver el menu en {restaurant.menu} </p>
+                            <p> Podés ver el menu en </p> <p>{restaurant.menu} </p>
             
                             <OrderForm />
                         </div>
