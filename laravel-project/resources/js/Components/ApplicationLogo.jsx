@@ -1,6 +1,6 @@
 export default function ApplicationLogo(props) {
     return (
-        <img width="200" height="200" src="https://media.discordapp.net/attachments/1294057494254977158/1309004065375649845/image.png?ex=67400089&is=673eaf09&hm=754ef31a2e774692dded46a97cc786eb725c7ec13d56df54781f709891248c1a&=&format=webp&quality=lossless"/>
+        <img width="200" height="200" src="https://media.discordapp.net/attachments/1294057494254977158/1309182902340419665/logo.png?ex=6740a717&is=673f5597&hm=cba4d210dbb2fa5f35ba2ecc9801f9ad00202bbc38f3e06737bd90e6e942559e&=&format=webp&quality=lossless"/>
         //<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.507 13.941c-1.512 1.195-3.174 1.931-5.506 1.931-2.334 0-3.996-.736-5.508-1.931l-.493.493c1.127 1.72 3.2 3.566 6.001 3.566 2.8 0 4.872-1.846 5.999-3.566l-.493-.493zm-9.007-5.941c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5-.672-1.5-1.5-1.5zm7 0c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5-.672-1.5-1.5-1.5z"/></svg>
     );
 }
