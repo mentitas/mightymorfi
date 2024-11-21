@@ -8,7 +8,7 @@ use Inertia\Inertia;
 
 // ***mapa y rutas sin autenticar***
 // Pagina inicial: muestra el mapa
-Route::get('/', [MapController::class, 'view']);
+Route::get('/', [MapController::class, 'view'])->name('map');
 
 // Devuelve un QR que contiene content.
 Route::get('/qr/{content}', [QrCodeController::class, 'generate']);

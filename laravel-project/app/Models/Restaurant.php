@@ -70,9 +70,9 @@ class restaurant extends Model
     }
 
 
-    public function locations($id)
+    public function locations()
     {
-        return $this->select('name', 'latitude', 'longitude','horarios','menu')->get();
+        return $this->select('name', 'latitude', 'longitude','timetable','menu')->get();
     }
 
 

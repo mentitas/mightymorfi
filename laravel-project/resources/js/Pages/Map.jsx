@@ -7,7 +7,7 @@ export default function map() {
         <LayoutWrapper
         header={
             <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                Restaurant Finder
+                Mapa de restaurants 
             </h2>
         }
     >
@@ -17,7 +17,7 @@ export default function map() {
             <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                     <div className="p-6 text-gray-900">
-                        Navigate the following map to explore all restaurants.
+                        Explorá tus restaurants más cercanos.
                         <SimpleMap />
                     </div>
                 </div>

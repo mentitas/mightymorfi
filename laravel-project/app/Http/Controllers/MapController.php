@@ -17,7 +17,7 @@ class MapController extends Controller
 
     public function view(): Response
     {
-        $locations = Restaurant::select('latitude', 'longitude')->get();
+        $locations = Restaurant::select('latitude', 'longitude', 'name', 'menu', 'timetable', 'id', 'logo')->get();
         return Inertia::render('Map',[
             'locations' => $locations
         ]);

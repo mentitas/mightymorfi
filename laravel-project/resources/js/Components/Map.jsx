@@ -28,6 +28,7 @@ const SimpleMap = () => {
 
   //Busco las props con la location desde Inertia
   const locations = usePage().props.locations;
+  console.log(locations);
 
   return (
     <div className="mx-auto max-w-screen-lg px-4"> {/* Centers and constrains width */}
@@ -42,31 +43,32 @@ const SimpleMap = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+
         {locations.map((location, index) => (
         <Marker key={index} position={[location.latitude, location.longitude]}>
           <Popup>
               <h3 className="font-bold">{location.name}</h3>
-              <p><strong>Opening Hours:</strong> {location.horarios || "Not Available"}</p>
+              <img src={location.logo}/>
+
+              <p><strong>Opening Hours:</strong> {location.timetable || "Not Available"}</p>
               <p>
                 <a href={location.menu} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
-                  View Menu
+                  Ver el menú
                 </a>
               </p>
               <p>
-                <a href="#" className="text-blue-500 underline">
-                  Order Takeout
+                <a href={`/order/${location.id}/pickup`} className="text-blue-500 underline">
+                  Hacer pedido Pickup
                 </a>
               </p>
             </Popup>
         </Marker>
         ))}
       {
-        // Add a marker for the user's current location
+        // Agregar un puntito con la posición del usuarix
         navigator.geolocation.getCurrentPosition((position) => {
           const { latitude, longitude } = position.coords;
-          // center the map on the user's location
           mapRef.current.setView([latitude, longitude], 13);
-          //L.marker([latitude, longitude]).addTo(mapRef.current).bindPopup('You are here');
         }, (error) => {
           console.error('Error getting user location:', error);
         })

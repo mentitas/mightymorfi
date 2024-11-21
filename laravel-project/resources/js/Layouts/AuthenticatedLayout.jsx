@@ -33,11 +33,16 @@ export default function AuthenticatedLayout({ header, children }) {
                                 {/*TODO PONER LA RUTA A PEDIDOS EN VISTA DUEÑO*/}
                                 <NavLink
                                     href={route('order')}
-                                    active={false}
+                                    active={route().current('order')}
                                 >
                                     Pedidos
                                 </NavLink>
-
+                                <NavLink
+                                    href={route('map')}
+                                    active={route().current('map')}
+                                >
+                                    Mapa
+                                </NavLink>
 
                             </div>
                         </div>
