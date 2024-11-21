@@ -9,10 +9,10 @@ import { useEffect, useState, useRef } from 'react';
 export default function OrderForm( ) {
 
     const user = usePage().props.auth.user;
-    const { restaurantId, table } = usePage().props;
+    const { restaurant, table } = usePage().props;
     
     const { data, setData, patch, errors, processing, recentlySuccessful } = useForm({
-        restaurant: restaurantId,
+        restaurant: restaurant.id,
         table: table,
         content: "...",
         status: "Por preparar",

@@ -6,7 +6,7 @@ import { useEffect, useState, useRef } from 'react';
 
 export default function QR({content}) {
 
-    const qrs = usePage().props.qrs
+    const { qrs, urls, names } = usePage().props
     
     return (
         <div>
@@ -14,8 +14,9 @@ export default function QR({content}) {
             <div className="order-container flex flex-wrap">
                 {qrs.map((qr, index) => (
                     <div key={index} className="order-item p-4 mb-4 border rounded-lg">
-                        <p> QR de la mesa {index+1}. </p>
-                        <img src={qr} alt="Código QR para la mesa {index+1}" />
+                        <p> QR de la mesa {names[index]}. </p>
+                        <p className="text-xs"> ({urls[index]}) </p>
+                        <img src={qr}/>
                     </div>
                 ))}
 

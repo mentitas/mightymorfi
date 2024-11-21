@@ -13,23 +13,36 @@ use App\Models\{Restaurant};
 class QrCodeController extends Controller
 {   
 
-    public function generate(Request $request, $id)
-    {   
-            $restaurant = Restaurant::where('owner_id', $request->user()->id)->findOrFail($id);
-            $tables = $restaurant['tables'];
-            $qrCodes = [];
+    public function generateQR($url){
+        $qrCode = QrCode::format('png')->size(200)->generate($url);
+        return 'data:image/png;base64,' . base64_encode($qrCode);
+    }
 
-            for ($table = 1; $table <= $tables; $table++) {
-                $url = 'http://127.0.0.1:8000/order/' . $id . '/' . $table; // TODO: Cambiar URL!!!
-                $qrCode = QrCode::format('png')->size(200)->generate($url);
-                $qrCodes[] = 'data:image/png;base64,' . base64_encode($qrCode);
-                
-            }
-                
-            return Inertia::render('Restaurant/RestaurantQRs', [
-                'restaurant' => $restaurant,
-                'qrs' => $qrCodes
-            ]);
+    public function generateAllQRs(Request $request, $id)
+    {       
+        $restaurant = Restaurant::where('owner_id', $request->user()->id)->findOrFail($id);
+        $tables = $restaurant['tables'];
+        
+        $qrCodesNames   = [];
+        $qrCodesContent = [];
+        $qrCodesImages  = [];
+
+        $qrCodesNames[]   = "pickup";
+        $qrCodesContent[] = 'http://127.0.0.1:8000/order/' . $id . '/pickup';
+        $qrCodesImages[]  = QrCodeController::generateQR('http://127.0.0.1:8000/order/' . $id . '/pickup');
+        
+        for ($table = 1; $table <= $tables; $table++) {
+            $qrCodesNames[]   = $table;
+            $qrCodesContent[] = 'http://127.0.0.1:8000/order/' . $id . '/' . $table;
+            $qrCodesImages[]  = QrCodeController::generateQR('http://127.0.0.1:8000/order/' . $id . '/' . $table);
+        }
+
+        return Inertia::render('Restaurant/RestaurantQRs', [
+            'restaurant' => $restaurant,
+            'qrs'  => $qrCodesImages,
+            'urls' => $qrCodesContent,
+            'names' => $qrCodesNames,
+        ]);
 
     }
 

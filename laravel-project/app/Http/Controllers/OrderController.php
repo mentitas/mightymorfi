@@ -45,8 +45,10 @@ class OrderController extends Controller
         $orders = Order::getBy('user_id', $request->user()->id);
         $restaurant = Restaurant::getInfo($restaurantId);
 
+        $canOrder = (($table <= $restaurant->tables) or ($table=="pickup"));
+
         return Inertia::render('Order/Order', [
-            'canOrder'   => true,
+            'canOrder'   => $canOrder,
             'orders'     => $orders,
             'restaurant' => $restaurant,
             'table'      => $table,

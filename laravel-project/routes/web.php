@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/restaurant/{id}',      [RestaurantController::class, 'viewOrders'])->name('restaurantById');
     Route::get('/restaurant/edit/{id}', [RestaurantController::class, 'editRestaurant'])->name('restaurantById');
     Route::patch('/restaurant/{id}',    [RestaurantController::class, 'update'])->name('restaurant.update');
-    Route::get('/restaurant/qr/{id}',   [QrCodeController::class,     'generate']);
+    Route::get('/restaurant/qr/{id}',   [QrCodeController::class,     'generateAllQRs']);
 
     //Rutas para ver los pedidos
     Route::get('/order',                        [OrderController::class, 'viewOrdersFromUser'])->name('order');
