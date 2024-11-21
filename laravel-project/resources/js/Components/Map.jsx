@@ -1,6 +1,8 @@
 import { usePage } from '@inertiajs/react';
 import { useEffect, useState, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import SecondaryButton from '@/Components/SecondaryButton';
+
 import L from 'leaflet';
 import "leaflet/dist/leaflet.css";
 
@@ -46,21 +48,22 @@ const SimpleMap = () => {
 
         {locations.map((location, index) => (
         <Marker key={index} position={[location.latitude, location.longitude]}>
+
           <Popup>
               <h3 className="font-bold">{location.name}</h3>
-              <img src={location.logo}/>
+              <img width="75" height="75" src={location.logo}/>
 
               <p><strong>Opening Hours:</strong> {location.timetable || "Not Available"}</p>
-              <p>
-                <a href={location.menu} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
-                  Ver el menú
-                </a>
-              </p>
-              <p>
-                <a href={`/order/${location.id}/pickup`} className="text-blue-500 underline">
-                  Hacer pedido Pickup
-                </a>
-              </p>
+
+                <SecondaryButton className="my-2"
+                                onClick={() => window.open(location.menu, '_blank')}>
+                    Ver el menu        
+                </SecondaryButton>
+                <SecondaryButton className="my-2"
+                                 onClick={() => window.location.href = '/order/' + location.id + '/pickup'}>
+                    Hacer pedido Pickup
+                </SecondaryButton>
+               
             </Popup>
         </Marker>
         ))}

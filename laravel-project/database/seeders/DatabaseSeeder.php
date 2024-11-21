@@ -38,9 +38,9 @@ class DatabaseSeeder extends Seeder
             'timetable' => '9am - 9pm',
             'contact' => '1234567890',
             'logo' => 'https://static.wikia.nocookie.net/spongebob/images/7/77/KrustyKrabStock.png/',
-            'tables' => "25",
-            'latitude' => '-34.6055491862155',
-            'longitude'=>'-58.5634932603933'
+            'tables' => "4",
+            'latitude' => '-34.5438384634825',
+            'longitude'=> '-58.44024928096965'
         ]);
         $restaurant2 = Restaurant::factory()->create([
             'name' => 'Balde de Carnada',
@@ -49,10 +49,10 @@ class DatabaseSeeder extends Seeder
             'menu' => 'https://example.com/menu-con-comida-fea',
             'timetable' => '9am - 10am',
             'contact' => '111222333',
-            'logo' => 'https://static.wikia.nocookie.net/spongefan/images/e/ee/The_chum_bucket.jpg/revision/latest?cb=20131123131942',
+            'logo' => 'https://static.wikia.nocookie.net/spongefan/images/e/ee/The_chum_bucket.jpg',
             'tables' => "1",
-            'latitude' => '-34.607683813430604',
-            'longitude'=>'-58.56353675727036'
+            'latitude' => '-34.5393994395381',
+            'longitude'=>'-58.439175855892884'
         ]);
 
         Order::factory()->create([
