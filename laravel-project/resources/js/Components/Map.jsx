@@ -25,8 +25,8 @@ L.Marker.prototype.options.icon = defaultIcon;
 
 const SimpleMap = () => {
   const mapRef = useRef(null);
-  const latitude = 51.505;
-  const longitude = -0.09;
+  const latitude = -34.5438384634825;
+  const longitude = -58.44024928096965;
 
   //Busco las props con la location desde Inertia
   const locations = usePage().props.locations;
