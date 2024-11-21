@@ -28,13 +28,13 @@ class QrCodeController extends Controller
         $qrCodesImages  = [];
 
         $qrCodesNames[]   = "pickup";
-        $qrCodesContent[] = 'http://127.0.0.1:8000/order/' . $id . '/pickup';
-        $qrCodesImages[]  = QrCodeController::generateQR('http://127.0.0.1:8000/order/' . $id . '/pickup');
+        $qrCodesContent[] = 'http://4.156.117.17/order/' . $id . '/pickup';
+        $qrCodesImages[]  = QrCodeController::generateQR('http://4.156.117.17/order/' . $id . '/pickup');
         
         for ($table = 1; $table <= $tables; $table++) {
             $qrCodesNames[]   = $table;
-            $qrCodesContent[] = 'http://127.0.0.1:8000/order/' . $id . '/' . $table;
-            $qrCodesImages[]  = QrCodeController::generateQR('http://127.0.0.1:8000/order/' . $id . '/' . $table);
+            $qrCodesContent[] = 'http://4.156.117.17/order/' . $id . '/' . $table;
+            $qrCodesImages[]  = QrCodeController::generateQR('http://4.156.117.17/order/' . $id . '/' . $table);
         }
 
         return Inertia::render('Restaurant/RestaurantQRs', [
