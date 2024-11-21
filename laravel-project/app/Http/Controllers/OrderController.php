@@ -42,14 +42,21 @@ class OrderController extends Controller
     //Render pagina lista ordenes
     public function viewOrdersFromUserAtRestaurant(Request $request, $restaurantId, $table): Response
     {   
-        $orders = Order::getBy('user_id', $request->user()->id);
         $restaurant = Restaurant::getInfo($restaurantId);
+        $ordersFromUser = Order::getBy('user_id', $request->user()->id);
+        $ordersFromRestaurant = Order::getBy('restaurant', $restaurantId);
 
-        $canOrder = (($table <= $restaurant->tables) or ($table=="pickup"));
+        $orderFromTable = $ordersFromRestaurant->filter(function ($order) use ($table) {
+            return $order->table == $table;
+        });
+    
+        $tableIsEmpty = $orderFromTable->isEmpty(); 
+
+        $canOrder = ((($table <= $restaurant->tables) or ($table=="pickup")) and $tableIsEmpty);
 
         return Inertia::render('Order/Order', [
             'canOrder'   => $canOrder,
-            'orders'     => $orders,
+            'orders'     => $ordersFromUser,
             'restaurant' => $restaurant,
             'table'      => $table,
         ]);
