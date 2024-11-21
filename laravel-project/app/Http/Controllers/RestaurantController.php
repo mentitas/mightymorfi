@@ -27,7 +27,8 @@ class RestaurantController extends Controller
     public function update(RestaurantUpdateRequest $request, $restaurantId): RedirectResponse
     {
         //$attributes = $request->validated();
-        $attributes = [ 'name' => $request->input('name'), 
+        $attributes = [
+        'name'      => $request->input('name'), 
         'contact'   => $request->input('contact'), 
         'address'   => $request->input('address'), 
         'menu'      => $request->input('menu'), 
@@ -80,7 +81,7 @@ class RestaurantController extends Controller
 
     //Render pagina ordenes de un restaurant
     public function editRestaurant(Request $request, $restaurantId): Response
-    {   
+    {
         $restaurant = Restaurant::where('owner_id', $request->user()->id)->findOrFail($restaurantId);
         return Inertia::render('Restaurant/RestaurantManagement', [
             'restaurant' => $restaurant,

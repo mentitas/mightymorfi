@@ -28,7 +28,8 @@ class restaurant extends Model
         'timetable',
         'contact',
         'latitude',
-        'longitude'
+        'longitude',
+        'logo'
     ];
 
 
@@ -60,7 +61,7 @@ class restaurant extends Model
     }
 
     public static function updateRestaurant($id, $attributes)
-    {
+    {   
         $restaurant = Restaurant::findOrFail($id);
         $restaurant->fill($attributes);
         $restaurant->save();
