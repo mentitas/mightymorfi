@@ -1,18 +1,39 @@
 ## CONFIGURACION INICIAL
 
-- Asegurarse de tener los siguientes paquetes en el equipo. PHP, Composer, Laravel, nodejs, npm
+1. Asegurarse de tener los siguientes paquetes en el equipo: PHP, Composer, Laravel, nodejs, npm.
 
-- Ejecutar los siguientes comandos en la carpeta laravel-project para instalar dependencias
-- - npm install
-- - composer install
+2. Ejecutar los siguientes comandos en la carpeta laravel-project para instalar dependencias.
+```console
+npm install
+```
+```console
+composer install
+```
 
-- Instalar DB Mock (TODO poner como)
+3. Crear la base de datos.
+```console
+php artisan migrate
+```
 
-- Lanzar el server de prueba:
-- - php artisan serve --host 0.0.0.0
+4. Meterle datos dummy a la base de datos.
+```console
+php artisan db:seed
+```
+
+5. Compilar los cambios y lanzar el servidor.
+```console
+composer dev build
+```
+
+6. Forma alternativa de lanzar el servidor.
+```console
+php artisan serve --host 0.0.0.0
+```
 
 ## Ejecucion en DOCKER
 
-- Teniendo docker instalado, ejecutar:
-- - **docker build -t nombreImagenLocal . **
-- - **docker run -p 8000:8000 -d nombreImagenLocal **
+1. Teniendo docker instalado, ejecutar:
+```console
+docker build -t mightymorfi .
+docker run -p 8000:8000 -d mightymorfi
+```
